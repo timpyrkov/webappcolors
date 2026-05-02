@@ -1,239 +1,447 @@
-# Custom HTML Controls — Implementation Plan
+# Web App Colors — Refactoring Plan
 
-## Colour Palette
-
-| Token        | Hex       | Description                                      |
-|--------------|-----------|--------------------------------------------------|
-| `--bg`       | `#0f1210` | Very dark, faint greenish background             |
-| `--fg`       | `#e8ede9` | Very light, faint greenish foreground            |
-| `--neutral-1`| `#2a2f2b` | Darker neutral (greenish-grey)                   |
-| `--neutral-2`| `#6b7370` | Lighter neutral (greenish-grey)                  |
-| `--accent-1` | `#ee7f09` | Darker gold, slightly reddish                    |
-| `--accent-2` | `#ffce1b` | Lighter gold, slightly yellowish                 |
-
-All colours are defined once as CSS custom properties in a shared `tokens.css` and re-exported as JS constants in `tokens.js` so every control can reference them.
+> **Goal**: Re-focus this project from a styled UI-control showcase into a focused
+> **palette design tool**. Keep the two-panel layout (left = global controls,
+> right = showcase) but replace the rich UI showcase with a 2×2 grid of swatches
+> driven by a smart OKLCh-based palette engine and a new gradient authoring tool.
 
 ---
 
-## Project Structure (target)
+## 1. Design decisions (frozen)
+
+### 1.1 Token model — role-based bg/fg groups
+
+All non-accent colours collapse into **two role-based groups**, each 5 stops, sharing
+the same hue:
+
+| Token range          | Description                                                    |
+|----------------------|----------------------------------------------------------------|
+| `--bg-1` … `--bg-5`  | Background-side neutrals. In **dark theme** these are *dark*;  |
+|                      | in **light theme** these are *light*. `--bg-1` is the **most   |
+|                      | extreme** (= page background); `--bg-5` is closest to the      |
+|                      | mid range. Indices 2–5 drive **away** from the extreme.        |
+| `--fg-1` … `--fg-5`  | Foreground-side neutrals. In **dark theme** these are *light*; |
+|                      | in **light theme** these are *dark*. `--fg-1` is the **most    |
+|                      | extreme** (= primary text); `--fg-5` is closest to the mid     |
+|                      | range. Indices 2–5 drive **away** from the extreme.            |
+
+Convenience aliases:
+
+- `--bg` → `--bg-1` (page background, most extreme)
+- `--fg` → `--fg-1` (primary text colour, most extreme)
+- Edges, panels, dividers, grooves, shadows, muted text are all expressed as
+  `--bg-N` / `--fg-N` rather than ad-hoc `--panel-bg`, `--edge-1/2`, `--neutral-1..4`.
+
+**Lightness range allocation** (initial values, iterate during Phase 5):
+
+| Range (OKLCh L) | Owner                              |
+|-----------------|------------------------------------|
+| `0.10` → `0.50` | `--bg-1..5` (dark theme)           |
+| `0.50` → `0.75` | Reserved for **secondary accents** |
+| `0.75` → `1.00` | `--fg-1..5` (dark theme)           |
+
+In the dark theme: `--bg-1` sits at L≈0.10 (extreme), `--bg-5` at L≈0.50;
+`--fg-1` at L≈1.00 (extreme), `--fg-5` at L≈0.75. So bg occupies **half** the
+range, fg occupies **a quarter**, and the middle quarter is sampled by the
+secondary-accent ladder (§4.2). The light theme mirrors the L axis: `--bg-1`
+at L≈0.95, `--fg-1` at L≈0.05, etc. Exact endpoints are constants and will be
+tuned during Phase 5.
+
+Accents (5 per group, same in dark & light themes):
+
+| Token range                       | Source                                              |
+|-----------------------------------|-----------------------------------------------------|
+| `--primary-accent-1..5`           | Sampled from the **smart gradient** (see §3)        |
+| `--secondary-accent-1..5`         | Derived from `main` seed (see §4.2)                 |
+
+Notifications (5 semantic colours, **theme-unaware** — single fixed set):
 
 ```
-htmlcontrols/
-├── PLAN.md
-├── index.html                  ← demo / playground page
-├── css/
-│   └── tokens.css              ← CSS custom properties (palette, spacing)
-├── js/
-│   ├── tokens.js               ← palette as JS constants (for canvas/SVG)
-│   └── controls/
-│       ├── rotary-knob.js      ← <rotary-knob> Web Component
-│       ├── push-button.js      ← <push-button>
-│       ├── segmented-control.js← <segmented-control>
-│       ├── toggle-switch.js    ← <toggle-switch>
-│       ├── slider.js           ← <range-slider>
-│       ├── progress-bar.js     ← <progress-bar>
-│       ├── range-selector.js   ← <range-selector>
-│       ├── radio-button.js     ← <radio-button>
-│       ├── check-box.js        ← <check-box>
-│       ├── text-field.js       ← <text-field>
-│       ├── dropdown-menu.js    ← <dropdown-menu>
-│       └── dropdown-calendar.js← <dropdown-calendar>
-└── assets/                     ← optional static assets
+--color-note   --color-message   --color-success   --color-warning   --color-error
 ```
 
-Every control is a **self-contained Web Component** (Custom Element + Shadow DOM) so it can be dropped into any project with a single `<script>` import and a custom tag.
+> ⚠️ Current state: in `gen_colors.js` these are **theme-aware** today
+> (different hex per theme, lines 235–239). The plan is to collapse them to a
+> single fixed set, using the existing **dark-theme values** as the canonical
+> set:
+>
+> | Token              | Hex       |
+> |--------------------|-----------|
+> | `--color-note`     | `#5bbcb8` |
+> | `--color-message`  | `#4da6e8` |
+> | `--color-success`  | `#5cb85c` |
+> | `--color-warning`  | `#e8a838` |
+> | `--color-error`    | `#d9534f` |
+
+### 1.2 Showcase layout — 2×2 grid
+
+The right panel is a 2×2 grid of equal-size sub-panels, all driven by the
+**single currently selected palette**:
+
+|                       | Left column (Dark theme)              | Right column (Light theme)             |
+|-----------------------|---------------------------------------|----------------------------------------|
+| **Top row**           | Dark + neutrals = grey (chroma 0)     | Light + neutrals = grey (chroma 0)     |
+| **Bottom row**        | Dark + neutrals tinted by `main` hue  | Light + neutrals tinted by `main` hue  |
+
+Each sub-panel contains:
+
+1. Typography block: `<h1>` title, `<h2>` heading, `<h3>` sub-heading, normal
+   paragraph text, accent comment text.
+2. Five rows of 5 colour rectangles, each labelled with its **token name** and
+   **hex code**:
+   - Primary accents (`--primary-accent-1..5`)
+   - Secondary accents (`--secondary-accent-1..5`)
+   - Neutral lights (the lighter of the two groups in this theme)
+   - Neutral darks (the darker of the two groups in this theme)
+   - Notifications (`--color-note`, `--color-message`, `--color-success`, `--color-warning`, `--color-error`)
+
+> "Neutral lights" / "Neutral darks" are *absolute* labels: in dark theme,
+> `--bg-*` is dark and `--fg-*` is light, so darks=`--bg-*` lights=`--fg-*`.
+> In light theme the mapping is reversed.
+
+### 1.3 Left panel — simplified controls
+
+Keep:
+
+- Title + version tag
+- **Language** segmented control
+- **Font** segmented control
+- **Palette** segmented control (15 presets, 5×3 grid)
+- Palette meta inputs (gems / natural / flower / beverage)
+- Per-seed colour pickers (`main` + `accents[]`)
+- Action buttons: **Save config**, **Export palette**, **Reset**
+- **Gradient / Home** toggle button (below the action buttons) that swaps the
+  right-hand area between the 2×2 showcase and the gradient playground (§3).
+
+Remove:
+
+- Style selector
+- Theme selector
+- Colorization (saturation) selector
+- **"Disable all" checkbox** (no longer relevant — right panel has no interactive controls)
+- All UI showcase elements: buttons, knobs, gauges, toggles, sliders,
+  checkboxes, radios, charts, calendars, notifications components
+- The "Export style" button + the entire `/api/export-style` machinery
+
+### 1.4 Persistence model
+
+**Save config** writes the edited `PALETTES` map back to
+`public/js/palettes.js`:
+
+- **Dev mode** (running under `node server.js` locally): `POST /api/save-palettes`
+  writes the file directly to disk.
+- **Prod / read-only deploy** (or when the API call fails): client falls back to
+  triggering a `palettes.js` download. The server advertises its capability
+  via `GET /api/capabilities` so the UI can show the right button label.
 
 ---
 
-## Phase 1 — Rotary Knob
+## 2. Project re-shape
 
-- [x] **Step 1: Scaffold & Palette**
-  - Create `css/tokens.css` with all palette variables.
-  - Create `js/tokens.js` exporting the same values as JS hex strings.
-  - Create bare `index.html` importing both files, with a dark `--bg` body.
+### 2.1 Files to delete
 
-- [x] **Step 2: Rotary Knob — Static Rendering (Canvas)**
-  - Create `js/controls/rotary-knob.js` defining `<rotary-knob>` custom element.
-  - Use an internal `<canvas>` for all drawing (sharp rendering at any DPI).
-  - Implement drawing helpers:
-    - **Outer circle**: linear gradient `neutral-1 → neutral-2`, direction hardcoded as a constant (`GRAD_ANGLE_DEG`) at the top of the file for easy manual tweaking.
-    - **Inner circle**: same gradient colours, opposite direction (`GRAD_ANGLE_DEG + 180`).
-  - Both circles are always stationary — only the pointer moves.
+- `public/css/styles/` — entire directory (basic/flat/gradient/volume/grooves/shadows.css)
+- `public/js/controls/` — entire directory (flat.js, rotary-knob.js, gauges.js, push-button.js, segmented-control.js)
+- `public/js/style-manager.js`
+- `public/js/tokens.js` (legacy JS palette constants — no longer used)
+- All references to the above in `public/index.html` and `server.js`
 
-- [x] **Step 3: Pointer (Indicator Segment)**
-  - Draw a short rounded-cap line segment near the inner-circle edge.
-  - Gradient along the radial direction: `accent-1` (near centre) → `accent-2` (near edge).
-  - Angular position `θ` derived from the current value.
+### 2.2 Files to keep (and refactor)
 
-- [x] **Step 4: Value Indicators — Continuous Mode**
-  - Attribute: `mode="continuous"` (default), `min`, `max`, `value`, `step` (optional).
-  - Draw a thick arc in `neutral-2` just outside the outer circle, with a gap at the 12-o'clock (top) position where start meets end.
-  - Overlay an accent-coloured arc from start to current-value angle:
-    - Start colour = `accent-2`.
-    - End colour = `lerp(accent-1, accent-2, alpha)` where `alpha = (value - min) / (max - min)`.
-  - Clockwise direction; 0 (start) is at top.
+| File                              | Change                                                              |
+|-----------------------------------|---------------------------------------------------------------------|
+| `public/index.html`               | Strip showcase, build new 2×2 grid scaffolding                      |
+| `public/css/layout.css`           | Drop UI-control styles, add 2×2 grid + swatch styles                |
+| `public/css/tokens.css`           | Define `--bg-1..5`, `--fg-1..5`, accent and notification tokens     |
+| `public/js/app.js`                | Remove style/theme/saturation/showcase wiring; add new wiring       |
+| `public/js/gen_colors.js`         | Rewrite generator (see §4)                                          |
+| `public/js/palettes.js`           | Keep seeds; possibly add `gradient` field per palette (see §3)      |
+| `public/js/i18n.js` + `i18n/*.json` | Keep, prune unused keys                                           |
+| `server.js`                       | Drop export-style; add `/api/save-palettes` + `/api/capabilities`   |
 
-- [x] **Step 5: Value Indicators — Enumerated Mode**
-  - Attribute: `mode="enum"`, `values` (JSON array or comma-separated).
-  - Place text labels evenly around the outer circle, clockwise from top.
-  - Trim each label to max 3 characters.
-  - All choices in `accent-1` (normal font); currently selected in `accent-2` (bold font).
+### 2.3 New files
 
-- [x] **Step 6: Title & Value Caption**
-  - Below the knob, centred: `Title :  value` — title in `--fg`, colon in `--fg`, value in `accent-2`.
-  - Full combined text is measured first, then horizontally centred as a unit.
+| File                                     | Purpose                                            |
+|------------------------------------------|----------------------------------------------------|
+| `public/js/components/gradient-slider.js`| `<gradient-slider>` Web Component (see §3.3)       |
+| `public/js/components/swatch-grid.js`    | `<swatch-grid>` Web Component for the 2×2 panels   |
+| `public/js/components/swatch-row.js`     | `<swatch-row>` for the playground rectangle rows   |
+| `public/js/components/color-picker.js`   | Lightweight picker (if not already extracted)      |
 
-- [x] **Step 7: Interaction — Mouse**
-  - **Single click** anywhere on the knob area → compute angle from centre → snap/set value.
-  - **Click-and-hold + drag** → continuously update angle as mouse moves.
-    - Continuous mode: smooth value tracking.
-    - Enum mode: snap to the nearest enum position.
-  - Lightweight eased animation (`requestAnimationFrame` + ease-out) for all pointer transitions.
-
-- [x] **Step 8: Public API & Events**
-  - Properties / attributes: `value`, `min`, `max`, `step`, `mode`, `values`, `label`.
-  - Fires `input` event on every visual change and `change` on release.
-  - Methods: `setValue(v)`, `getValue()`.
-
-- [x] **Step 9: Demo Page**
-  - `index.html` with two knobs side-by-side:
-    1. Continuous: range 0–100.
-    2. Enum: days of the week.
-  - Dark background, centred layout.
-
-- [ ] **Step 10: Rotary Knob — Disabled State**
-  - When `disabled` attribute is set, draw with reduced opacity, ignore pointer events.
+`components/` is a new directory replacing the deleted `controls/`.
 
 ---
 
-## Phase 2 — Button & Segmented Control
+## 3. Smart gradient tool & playground page
 
-- [ ] **Step 11: Push Button — Design**
-  - `<push-button>` Web Component.
-  - Rounded-corner rectangle with inner/outer rects sharing same gradient in opposite directions (like rotary knob circles).
-  - Outer rect only slightly larger than inner — size increase % hardcoded as a constant.
-  - Corner radius in `%` (hardcoded constant); gradient angle hardcoded constant.
-  - Pseudo-3D convex resting state; concave pressed state (inverted gradient + slight inset).
-  - Label text in `--fg`.
+The gradient tool lives on a **dedicated playground page** (not embedded in the
+left sidebar). The right-hand area of the app has two modes:
 
-- [ ] **Step 12: Push Button — Interaction**
-  - `mousedown` → pressed visual; `mouseup` / `mouseleave` → release visual.
-  - Fires `activate` event. Smooth CSS transitions between states.
-  - Demo: Play/Pause toggle button with alternating "▶ Play" / "⏸ Pause" text.
+- **Home** (default): the 2×2 showcase grid (§1.2).
+- **Gradient**: the playground described in §3.5.
 
-- [ ] **Step 13: Segmented Control — Design**
-  - `<segmented-control>` Web Component.
-  - Grid of rounded-corner segments sharing the same outer/inner gradient technique.
-  - Supports `columns` attribute for multi-column layout (e.g. 4 cols × 2 rows).
-  - Selected segment uses accent gradient; others use neutral gradient.
+A single button in the left panel toggles between them; its label flips
+between "Gradient" (when in Home mode) and "Home" (when in Gradient mode).
 
-- [ ] **Step 14: Segmented Control — Interaction**
-  - Click a segment to select it; fires `change` event with `detail.value`.
-  - Smooth transition on selection change.
-  - Demo: language selection ("EN", "ES", "FR", "DE", "RU", "KO", "JP", "CN") in 2 rows × 4 cols.
+### 3.1 Data model
 
-- [ ] **Step 15: Button & Segmented Control — Disabled State**
-  - When `disabled` attribute is set, reduced opacity, no pointer events.
+A **gradient** is an ordered list of swatches:
 
-- [ ] **Step 16: Phase 2 — Demo & Integration**
-  - Add button and segmented control examples to `index.html`.
-  - Rearrange page layout so all controls fit without scrolling.
+```ts
+type Swatch = { position: number /* integer 0..100 */, hex: string };
+type Gradient = Swatch[]; // length ≥ 2, sorted by position, includes 0 and 100
+```
 
----
+Invariants:
 
-## Phase 3 — Toggle Switch
+- Always at least two swatches at positions `0` and `100`.
+- Positions are unique integers in `[0, 100]`.
+- Swatches at `0` and `100` cannot be removed (only their colour edited).
 
-- [ ] **Step 17: Toggle Switch — Design**
-  - `<toggle-switch>` Web Component.
-  - Track rendered as a rounded capsule with subtle inset shadow (pseudo-3D groove).
-  - Thumb (slider circle) with same gradient technique as the rotary knob circles.
-  - Off state: `neutral-1`/`neutral-2` palette; On state: accent glow/gradient.
+### 3.2 OKLCh path interpolation
 
-- [ ] **Step 18: Toggle Switch — Interaction**
-  - Click toggles state.
-  - Smooth animated thumb slide + colour crossfade.
-  - Fires `change` event with `detail.checked`.
+Given the swatch list, produce a colormap `f(t): [0,100] → hex`:
 
-- [ ] **Step 19: Toggle Switch — Disabled State**
-  - When `disabled`, reduced opacity, no pointer events.
+1. Convert each swatch hex → OKLCh.
+2. Between consecutive swatches `(p_i, c_i)` and `(p_{i+1}, c_{i+1})`,
+   linearly interpolate `(L, C, h)` in OKLCh, choosing the **shorter hue arc**
+   (handle 360° wrap correctly).
+3. Convert the result back to sRGB hex; gamut-clip if necessary
+   (reduce chroma until in-gamut, preserving L and h).
 
-- [ ] **Step 20: Phase 3 — Demo & Integration**
-  - Add toggle switch examples to `index.html`.
+Sampling 5 evenly-spaced points (`t ∈ {0, 25, 50, 75, 100}`) yields the five
+**primary accents**.
 
----
+### 3.3 Gradient slider UI
 
-## Phase 4 — Slider, Progress Bar, Range Selector
+`<gradient-slider>` is the core Web Component:
 
-- [ ] **Step 21: Slider (`<range-slider>`)**
-  - Horizontal track (inset groove) + draggable thumb (pseudo-3D circle).
-  - Accent fill from left to thumb position.
-  - Attributes: `min`, `max`, `value`, `step`, `label`.
+- Horizontal gradient bar showing the rendered colormap.
+- Swatch markers along the bar; each marker is draggable horizontally and
+  snaps to integer positions; double-click opens a colour picker.
+- Anchor swatches at `0` and `100` cannot be moved or removed (only their
+  colour edited).
+- Click on empty space on the bar to insert a new swatch at the click position.
+- Right-click / × button on a non-anchor swatch removes it.
+- Emits `change` event with `detail: Gradient` whenever the gradient mutates.
 
-- [ ] **Step 22: Progress Bar (`<progress-bar>`)**
-  - Non-interactive horizontal bar.
-  - Accent-gradient fill proportional to `value` / `max`.
-  - Attributes: `value`, `max`, `label`.
+### 3.4 Gradient playground layout
 
-- [ ] **Step 23: Range Selector (`<range-selector>`)**
-  - Two draggable thumbs defining a sub-range.
-  - Accent fill between the two thumbs.
-  - Attributes: `min`, `max`, `low`, `high`, `step`, `label`.
+When the user toggles into Gradient mode, the right panel renders the
+playground as **three groups stacked vertically and aligned to the same
+horizontal axis**, so corresponding swatches line up:
 
-- [ ] **Step 24: Phase 4 — Disabled States & Demo**
-  - Disabled variants for all three. Add examples to `index.html`.
+1. **Seed-accent rectangles** — one rectangle per accent in the current
+   palette's `accents[]` (so 2, 3, 5, or 7 swatches), uniformly filled with
+   the seed hex. Labelled with the accent index and hex.
+2. **Gradient-sampled rectangles** — the **same number** of rectangles,
+   filled with colours sampled from the smart gradient at positions
+   matching the seed-accent positions in group 3 below. Labelled with
+   sampled hex.
+3. **Smart gradient slider** — a `<gradient-slider>` instance. The two
+   anchors at `0` and `100` are always present; intermediate swatches are
+   added at integer positions to match the structure of `accents[]`.
+   The user freely drags anchors to find positions that make group 2
+   reproduce group 1 as closely as possible.
 
----
+**Workflow for `quartz` (and eventually all palettes)**:
 
-## Phase 5 — Radio Button & Checkbox
+- `quartz` has **7 seed accents** (gruvbox-derived), more than the 5 primary
+  accents the engine targets. Using the playground, choose 5 of the 7 seeds
+  as gradient reference swatches at integer positions in `[0, 100]` and
+  iterate until the **2 excluded seeds** are well-approximated by samples
+  from the resulting gradient at intermediate positions.
+- Once a satisfactory gradient is found, manually edit `palettes.js` so
+  `quartz` uses the new 5-swatch `gradient` field.
+- Apply the same exercise to all other palettes; eventually the `special`
+  field on every palette can be dropped (including `quartz`'s implicit
+  >5-accent special-case and `diamond`'s `primaryFromLightness`).
 
-- [ ] **Step 25: Radio Button (`<radio-button>`)**
-  - Circular pseudo-3D outer ring; accent-filled inner dot when selected.
-  - Group via shared `name` attribute.
+### 3.5 Persistence
 
-- [ ] **Step 26: Checkbox (`<check-box>`)**
-  - Rounded-square pseudo-3D box; accent checkmark when checked.
+Each `PALETTES[key]` entry gains an optional `gradient` field:
 
-- [ ] **Step 27: Phase 5 — Disabled States & Demo**
-  - Disabled variants. Add examples to `index.html`.
+```js
+{
+  gems: "...", main: "#...", accents: ["#...","#..."],
+  gradient: [{ position: 0, hex: "#..." }, { position: 100, hex: "#..." }],
+  special: null,
+}
+```
 
----
-
-## Phase 6 — Text Field, Dropdown Menu, Dropdown Calendar
-
-- [ ] **Step 28: Text Field (`<text-field>`)**
-  - Inset pseudo-3D input area. Focus ring in accent colour.
-  - Attributes: `placeholder`, `value`, `label`.
-
-- [ ] **Step 29: Dropdown Menu (`<dropdown-menu>`)**
-  - Collapsed: looks like a push button with a chevron.
-  - Expanded: floating list with pseudo-3D panel. Accent highlight on hover/selection.
-  - Attributes: `values`, `value`, `label`.
-
-- [ ] **Step 30: Dropdown Calendar (`<dropdown-calendar>`)**
-  - Single-date and date-range modes.
-  - Collapsed: date display field. Expanded: month grid with pseudo-3D panel.
-  - Accent highlight on selected date(s); range highlight between start/end.
-  - Attributes: `mode` ("single" | "range"), `value`, `label`.
-
-- [ ] **Step 31: Phase 6 — Disabled States & Demo**
-  - Disabled variants. Add examples to `index.html`.
+When `gradient` is present it **overrides** `accents` for primary accent
+generation. When absent (legacy palette), the engine builds a default gradient
+from `accents` (one swatch per accent, evenly spaced).
 
 ---
 
-## Global
+## 4. Palette generation refactor (`gen_colors.js`)
 
-- [ ] **Disabled-mode toggle**
-  - Simple flat checkbox (theme-coloured, not 3D, not accent) in the bottom-right corner of the page.
-  - When checked, sets `disabled` attribute on every control on the page.
-  - When unchecked, removes `disabled` from all controls.
+### 4.1 Inputs
+
+```ts
+generatePalette({
+  main: hex,                  // page tint hue
+  gradient: Swatch[],         // primary accent gradient
+  saturationMode: "grey" | "tinted", // chroma of bg/fg groups
+  theme: "dark" | "light",
+}) → Record<TokenName, hex>
+```
+
+The 2×2 showcase calls this 4× per palette change, once per quadrant.
+
+### 4.2 Algorithm
+
+**bg/fg groups** (5 stops each, balanced lightness in OKLCh):
+
+- Hue `h` = `main`'s hue.
+- Chroma `C` = `0` when `saturationMode = "grey"`, else `main`'s chroma scaled by
+  a constant (e.g. 0.5) to keep neutrals subtle.
+- Lightness ladder for **dark theme**:
+  - `--bg-1..5`: `L ∈ [L_bg_min, L_mid_low]` evenly spaced (e.g. `0.08 → 0.30`).
+  - `--fg-1..5`: `L ∈ [L_mid_high, L_fg_max]` evenly spaced (e.g. `0.55 → 0.94`).
+- Light theme: invert the L ladders; chroma stays the same.
+- Specific L values are constants in the file, easy to tweak.
+
+**Primary accents (5 stops)**:
+
+- Sample the gradient at `t ∈ {0, 25, 50, 75, 100}` (§3.2).
+- Optional post-balance pass: equalise lightness spread / chroma so no single
+  stop dominates (TBD in §6, may be a no-op initially).
+
+**Secondary accents (5 stops)**:
+
+- Take `main`'s OKLCh `(L_m, C_m, h_m)`.
+- Generate 5 stops with the same hue, lightness ladder centred on `L_m`
+  (e.g. `[L_m − 0.20, L_m − 0.10, L_m, L_m + 0.10, L_m + 0.20]`),
+  and a controlled chroma curve (slightly attenuated at the extremes to avoid
+  out-of-gamut clipping).
+
+**Notifications**:
+
+- Five fixed semantic hues (note=teal, message=blue, success=green,
+  warning=amber, error=red), with theme-specific lightness/chroma chosen so
+  that contrast against `--bg` is consistent across themes.
+
+### 4.3 Token output
+
+Per call, returns a flat map:
+
+```
+--bg, --bg-1..5, --fg, --fg-1..5,
+--primary-accent-1..5, --secondary-accent-1..5,
+--color-note, --color-message, --color-success, --color-warning, --color-error
+```
 
 ---
 
-## Implementation Notes
+## 5. Server / persistence
 
-- **No build step required** — all files are plain ES modules; open `index.html` directly in a browser (or via a trivial local server if module CORS requires it).
-- **Gradient direction constant** — in each control file, look for:
-  ```js
-  const GRAD_ANGLE_DEG = 135; // ← tweak this to change gradient direction
-  ```
-- **Modular reuse** — to use a control in another project, copy its JS file + `tokens.css`/`tokens.js`, add `<script type="module">` and the custom tag.
+### 5.1 New endpoints
+
+- `GET /api/capabilities` → `{ canWritePalettes: boolean }`
+  - `true` when running under local dev (Express + writable filesystem).
+  - `false` on read-only deployments.
+- `POST /api/save-palettes`
+  - Body: `{ palettes: PALETTES_OBJECT }`
+  - Serialises the object as the body of `public/js/palettes.js`
+    (preserving the file header/comment block and exports).
+  - Returns `{ ok: true }` on success, `{ ok: false, error }` otherwise.
+
+### 5.2 Removed endpoints
+
+- `GET /api/export-style` (and the `archiver` dependency, if no longer used).
+
+### 5.3 Client behaviour
+
+On boot, `app.js` calls `/api/capabilities`:
+
+- If `canWritePalettes`: **Save** button posts to `/api/save-palettes`.
+- Else: **Save** button generates a `palettes.js` blob and triggers download.
+
+---
+
+## 6. Implementation phases
+
+### Phase 1 — Demolition & scaffold ✅ planning done
+
+- [ ] Delete `public/css/styles/`, `public/js/controls/`, `style-manager.js`, `tokens.js`.
+- [ ] Strip showcase markup from `index.html`; remove style/theme/saturation
+      controls from the left panel.
+- [ ] Strip control styles from `layout.css`; add a placeholder 2×2 grid.
+- [ ] Remove `/api/export-style` from `server.js`; drop unused dependencies.
+- [ ] Smoke test: app boots, left panel shows palette selector + meta, right
+      panel shows an empty 2×2 grid.
+
+### Phase 2 — Token model & generator skeleton
+
+- [ ] Update `tokens.css` with the new `--bg-N` / `--fg-N` token set
+      (default values for dark theme).
+- [ ] Rewrite `gen_colors.js` per §4 (initial straightforward implementation).
+- [ ] Wire `app.js` to call `generatePalette` 4× and apply the four token sets
+      to the four sub-panels via inline CSS variables.
+
+### Phase 3 — Swatch grid component
+
+- [ ] Implement `<swatch-grid>`: 5 rows × 5 columns of rectangles, each
+      showing token name + hex.
+- [ ] Implement typography block (title, headings, paragraph) above the grid.
+- [ ] Verify all four quadrants render correctly with the same palette but
+      different theme/saturation combos.
+
+### Phase 4 — Smart gradient tool & playground
+
+- [ ] Implement `<gradient-slider>` per §3.3 (drag, snap, add/remove, picker).
+- [ ] Add OKLCh path interpolation + gamut clipping helpers in `gen_colors.js`.
+- [ ] Add the **Gradient / Home** toggle button to the left panel; implement
+      view-swap of the right-hand area.
+- [ ] Build the playground layout per §3.5 (three vertically-aligned groups).
+- [ ] Wire gradient `change` events → live-update both the playground
+      sampled-rectangles row and (when in Home mode) the four quadrants.
+- [ ] Migrate existing palettes in `palettes.js` to include a `gradient` field
+      (auto-generated from current `accents`).
+
+### Phase 5 — Balanced palette generation
+
+- [ ] Tune the bg/fg L ladders and chroma scale for visual balance across
+      all 15 seed palettes; add unit-style sanity checks (min contrast
+      between `--bg` and `--fg`, etc.).
+- [ ] Tune secondary-accent ladder; ensure no out-of-gamut clipping.
+- [ ] (Optional) Add a "balance" pass to primary accents.
+
+### Phase 6 — Save / export
+
+- [ ] Add `/api/capabilities` and `/api/save-palettes` endpoints.
+- [ ] Implement `palettes.js` serialiser (idempotent, comment-preserving).
+- [ ] Wire **Save** button: post or download depending on capability.
+- [ ] Wire **Reset** button: revert edits to the on-disk seeds.
+- [ ] Update **Export palette**: download the four generated token sets +
+      seeds as JSON.
+
+### Phase 7 — Polish
+
+- [ ] Trim unused i18n keys; add new keys (`gradient.tool`, `swatch.primary`, …).
+- [ ] Tighten layout.css; ensure 2×2 quadrants stay equal-size on resize.
+- [ ] Update `README.md` to describe the new tool.
+
+---
+
+## 7. Open questions / TBD
+
+- **`special` field elimination** — the goal is to remove `special` from
+  every palette by re-authoring their `gradient` fields via the playground
+  workflow (§3.5). For `quartz`, this means picking 5 of its 7 seed
+  accents as gradient anchors and tuning positions until the other 2 are
+  reproduced by intermediate samples. For `diamond`, the
+  `primaryFromLightness` rule becomes a normal grey-axis gradient.
+- **Balance pass** for primary accents — exact algorithm to be iterated on
+  during Phase 5 against the 15 seed palettes.
+- **Lightness range constants** — the `0.10/0.50/0.75/1.00` split in §1.1
+  is a starting point; tune in Phase 5.
+
+---
+
+## 8. Versioning
+
+- Initial git tag: **`v1.0.0`** (empty annotation). All subsequent phases
+  bump the tag (e.g. `v1.1.0` after Phase 4 ships the gradient playground).
