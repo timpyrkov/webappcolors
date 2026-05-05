@@ -98,6 +98,7 @@
   "gauge.fuel": "燃油",
   "gauge.level": "水平",
   "btn.exportPalette": "导出调色板",
+  "btn.exportModules": "导出模块",
   "btn.exportStyle": "导出样式",
 
   "label.arcMode": "弧线模式",

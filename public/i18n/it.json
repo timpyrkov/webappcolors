@@ -98,6 +98,7 @@
   "gauge.fuel": "Carb",
   "gauge.level": "Livello",
   "btn.exportPalette": "Esporta palette",
+  "btn.exportModules": "Esporta moduli",
   "btn.exportStyle": "Esporta stile",
 
   "label.arcMode": "Modo arco",

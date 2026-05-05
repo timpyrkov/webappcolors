@@ -1,8 +1,8 @@
 /**
- * gen_colors.js — OKLCh colour-space conversion helpers.
+ * color_picker.js — OKLCh colour-space conversion helpers.
  *
- * Only used by color-picker for its OKLCh-based colour wheel.
- * All palette generation has moved to color_tools.js + palette_tools.js.
+ * Only used by the <color-picker> web component for its OKLCh colour wheel.
+ * Not part of the palette generation pipeline (palette_tools.js).
  */
 
 /* ================================================================

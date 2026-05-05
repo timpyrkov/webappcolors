@@ -25,6 +25,7 @@
   "btn.save": "Save",
   "btn.reset": "Reset",
   "btn.exportPalette": "Export palette",
+  "btn.exportModules": "Export modules",
   "btn.exportStyle": "Export style",
 
   "sat.accentsOnly": "Accents only",

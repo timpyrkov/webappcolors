@@ -98,6 +98,7 @@
   "gauge.fuel": "Топл",
   "gauge.level": "Уров",
   "btn.exportPalette": "Эксп. палитру",
+  "btn.exportModules": "Эксп. модули",
   "btn.exportStyle": "Эксп. стиль",
 
   "label.arcMode": "Режим дуги",

@@ -1,59 +1,12 @@
-require("dotenv").config();
 const express = require("express");
-const cookieParser = require("cookie-parser");
-const jwt = require("jsonwebtoken");
 const path = require("path");
+const fs = require("fs");
+const archiver = require("archiver");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const SECRET = process.env.SESSION_SECRET || "fallback-secret";
-const LOGIN_USER = process.env.LOGIN_USER || "demo";
-const LOGIN_PASS = process.env.LOGIN_PASS || "demo";
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
-/* ── Auth helpers ─────────────────────────────────────────────── */
-
-function createToken(username) {
-  return jwt.sign({ user: username }, SECRET, { expiresIn: "24h" });
-}
-
-function verifyToken(token) {
-  try {
-    return jwt.verify(token, SECRET);
-  } catch {
-    return null;
-  }
-}
-
-/* ── API routes ──────────────────────────────────────────────── */
-
-app.post("/api/login", (req, res) => {
-  const { username, password } = req.body;
-  if (username === LOGIN_USER && password === LOGIN_PASS) {
-    const token = createToken(username);
-    res.cookie("token", token, {
-      httpOnly: true,
-      sameSite: "lax",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
-    return res.json({ ok: true });
-  }
-  return res.status(401).json({ ok: false, error: "Invalid credentials" });
-});
-
-app.get("/api/logout", (_req, res) => {
-  res.clearCookie("token");
-  res.redirect("/login.html");
-});
-
-app.get("/api/me", (req, res) => {
-  const payload = verifyToken(req.cookies.token);
-  if (payload) return res.json({ ok: true, user: payload.user });
-  return res.status(401).json({ ok: false });
-});
 
 /* ── Version info from git tag ────────────────────────────────── */
 
@@ -69,18 +22,88 @@ app.get("/api/version", (_req, res) => {
   }
 });
 
+/* ── Save palette seeds back to palettes.js ─────────────────────────── */
 
-/* ── Auth guard middleware ────────────────────────────────────── */
+const PALETTES_PATH = path.join(__dirname, "public", "js", "palettes.js");
 
-const PUBLIC_PATHS = ["/login.html", "/css/login.css", "/api/login"];
+app.post("/api/save-palette", (req, res) => {
+  const { key, main, accents, gems, natural, flower, beverage } = req.body;
+  if (!key) return res.status(400).json({ ok: false, error: "Missing key" });
 
-app.use((req, res, next) => {
-  if (PUBLIC_PATHS.some((p) => req.path === p)) return next();
-  if (req.path.startsWith("/api/")) return next();
+  try {
+    let src = fs.readFileSync(PALETTES_PATH, "utf8");
 
-  const payload = verifyToken(req.cookies.token);
-  if (!payload) return res.redirect("/login.html");
-  next();
+    // Update seed data in PALETTES block
+    const paletteRe = new RegExp(
+      `(${key}:\\s*\\{[^}]*?main:\\s*")#[0-9a-fA-F]{6}(")`,
+      "s"
+    );
+    if (main) src = src.replace(paletteRe, `$1${main}$2`);
+
+    if (accents) {
+      const accRe = new RegExp(
+        `(${key}:\\s*\\{[^}]*?accents:\\s*)\\[[^\\]]*\\]`,
+        "s"
+      );
+      const accStr = JSON.stringify(accents);
+      src = src.replace(accRe, `$1${accStr}`);
+    }
+
+    // Update display names in PALETTES block
+    if (gems) {
+      const gemsRe = new RegExp(
+        `(${key}:\\s*\\{\\s*gems:\\s*")([^"]*)(".*?natural:)`,
+        "s"
+      );
+      src = src.replace(gemsRe, `$1${gems}$3`);
+    }
+    if (natural) {
+      const natRe = new RegExp(
+        `(${key}:\\s*\\{[^}]*?natural:\\s*")([^"]*)(".*?flower:)`,
+        "s"
+      );
+      src = src.replace(natRe, `$1${natural}$3`);
+    }
+    if (flower) {
+      const flRe = new RegExp(
+        `(${key}:\\s*\\{[^}]*?flower:\\s*")([^"]*)(".*?beverage:)`,
+        "s"
+      );
+      src = src.replace(flRe, `$1${flower}$3`);
+    }
+    if (beverage) {
+      const bevRe = new RegExp(
+        `(${key}:\\s*\\{[^}]*?beverage:\\s*")([^"]*)(")`,
+        "s"
+      );
+      src = src.replace(bevRe, `$1${beverage}$3`);
+    }
+
+    fs.writeFileSync(PALETTES_PATH, src, "utf8");
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("Save palette error:", err);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+/* ── Export reusable modules as zip ────────────────────────────── */
+
+app.get("/api/export-modules", (_req, res) => {
+  res.setHeader("Content-Type", "application/zip");
+  res.setHeader("Content-Disposition", 'attachment; filename="palette-module.zip"');
+
+  const archive = archiver("zip", { zlib: { level: 9 } });
+  archive.on("error", (err) => res.status(500).send({ error: err.message }));
+  archive.pipe(res);
+
+  const jsDir = path.join(__dirname, "public", "js");
+  archive.file(path.join(jsDir, "palette_tools.js"),  { name: "js/palette_tools.js" });
+  archive.file(path.join(jsDir, "palettes.js"),       { name: "js/palettes.js" });
+  archive.file(path.join(__dirname, "PALETTES.md"),   { name: "PALETTES.md" });
+  archive.file(path.join(__dirname, "LICENSE"),        { name: "LICENSE" });
+
+  archive.finalize();
 });
 
 /* ── Static files ────────────────────────────────────────────── */

@@ -2,7 +2,7 @@
  * <color-picker> — OKLCh colour wheel with L×C area picker.
  * Extracted from the original flat.js for standalone use.
  */
-import { hexToOklch, oklchToHex } from "../gen_colors.js";
+import { hexToOklch, oklchToHex } from "../color_picker.js";
 
 class ColorPicker extends HTMLElement {
   static get observedAttributes() { return ["value", "disabled", "size"]; }

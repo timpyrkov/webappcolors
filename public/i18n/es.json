@@ -98,6 +98,7 @@
   "gauge.fuel": "Comb",
   "gauge.level": "Nivel",
   "btn.exportPalette": "Exportar paleta",
+  "btn.exportModules": "Exportar módulos",
   "btn.exportStyle": "Exportar estilo",
 
   "label.arcMode": "Modo de arco",

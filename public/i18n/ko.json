@@ -98,6 +98,7 @@
   "gauge.fuel": "연료",
   "gauge.level": "레벨",
   "btn.exportPalette": "팔레트 내보내기",
+  "btn.exportModules": "모듈 내보내기",
   "btn.exportStyle": "스타일 내보내기",
 
   "label.arcMode": "아크 모드",

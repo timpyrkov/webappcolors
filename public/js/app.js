@@ -2,7 +2,6 @@
  * app.js — Boot script.
  * Wires global controls to the palette engine and 2×2 variant preview.
  */
-import { checkAuth } from "./auth.js";
 import { PALETTES, PALETTE_ORDER, DEFAULT_PALETTE, PALETTE_I18N } from "./palettes.js";
 import { createPalette, downloadPaletteJson } from "./palette_tools.js";
 import { loadLanguage, t } from "./i18n.js";
@@ -28,9 +27,6 @@ let paramAlertL = 0.55;
 let paramCategoryL = 0.55;
 let previewMode = 'layout';
 let currentPaletteResult = null;
-
-/* ── Auth check ── */
-await checkAuth();
 
 /* ── Version tag ── */
 fetch("/api/version").then(r => r.json()).then(v => {
@@ -572,7 +568,7 @@ const btnReset = document.getElementById("btnResetPalette");
 const btnExportPalette = document.getElementById("btnExportPalette");
 
 if (btnSave) {
-  btnSave.addEventListener("click", () => {
+  btnSave.addEventListener("click", async () => {
     const p = editedPalettes[currentPalette];
     const g = document.getElementById("metaGems");
     const n = document.getElementById("metaNatural");
@@ -583,6 +579,26 @@ if (btnSave) {
     if (f) p.flower = f.value;
     if (b) p.beverage = b.value;
     _initPaletteSelect(_currentLang);
+
+    try {
+      const resp = await fetch("/api/save-palette", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          key: currentPalette,
+          main: p.main,
+          accents: p.accents,
+          gems: p.gems,
+          natural: p.natural,
+          flower: p.flower,
+          beverage: p.beverage,
+        }),
+      });
+      const data = await resp.json();
+      if (!data.ok) console.error("Save failed:", data.error);
+    } catch (err) {
+      console.error("Save request failed:", err);
+    }
   });
 }
 
@@ -606,10 +622,17 @@ if (btnExportPalette) {
   });
 }
 
+const btnExportModules = document.getElementById("btnExportModules");
+if (btnExportModules) {
+  btnExportModules.addEventListener("click", () => {
+    window.location.href = "/api/export-modules";
+  });
+}
+
 /* ══════════════════════════════════════════════════════════════════
    Initial render
    ══════════════════════════════════════════════════════════════════ */
+await loadLanguage("en");
 refreshPalette();
 buildPickers();
 updateMetaFromPalette();
-await loadLanguage("en");

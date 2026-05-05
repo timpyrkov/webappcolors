@@ -98,6 +98,7 @@
   "gauge.fuel": "Kraft",
   "gauge.level": "Pegel",
   "btn.exportPalette": "Palette export.",
+  "btn.exportModules": "Module export.",
   "btn.exportStyle": "Stil exportieren",
 
   "label.arcMode": "Bogenmodus",

@@ -98,6 +98,7 @@
   "gauge.fuel": "燃料",
   "gauge.level": "レベル",
   "btn.exportPalette": "パレット出力",
+  "btn.exportModules": "モジュール出力",
   "btn.exportStyle": "スタイル出力",
 
   "label.arcMode": "アークモード",
