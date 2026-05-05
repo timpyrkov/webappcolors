@@ -154,6 +154,10 @@
   "mobile.meditation": "Meditación",
   "mobile.breathwork": "Respiración",
   "mobile.mood": "Ánimo",
+  "mobile.navHome": "Inicio",
+  "mobile.navHealth": "Salud",
+  "mobile.navTrack": "Registro",
+  "mobile.navSettings": "Ajustes",
 
   "variant.darkTinted": "Oscuro tintado",
   "variant.lightTinted": "Claro tintado",

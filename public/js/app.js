@@ -600,10 +600,10 @@ function _progressRing(percent, accentColor, trackColor, textColor) {
 function _bottomNav(bgColor, activeColor, mutedColor, fgColor) {
   const nav = _el('div', 'phone-nav');
   const items = [
-    { icon: '⌂', label: 'Home', active: true },
-    { icon: '♥', label: 'Health', active: false },
-    { icon: '◎', label: 'Track', active: false },
-    { icon: '⚙', label: 'Settings', active: false },
+    { icon: '⌂', label: t('mobile.navHome'), active: true },
+    { icon: '♥', label: t('mobile.navHealth'), active: false },
+    { icon: '◎', label: t('mobile.navTrack'), active: false },
+    { icon: '⚙', label: t('mobile.navSettings'), active: false },
   ];
   for (const it of items) {
     const item = _el('div', `phone-nav-item${it.active ? ' active' : ''}`);

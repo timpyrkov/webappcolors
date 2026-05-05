@@ -154,6 +154,10 @@
   "mobile.meditation": "冥想",
   "mobile.breathwork": "呼吸",
   "mobile.mood": "心情",
+  "mobile.navHome": "首页",
+  "mobile.navHealth": "健康",
+  "mobile.navTrack": "追踪",
+  "mobile.navSettings": "设置",
 
   "variant.darkTinted": "深色着色",
   "variant.lightTinted": "浅色着色",

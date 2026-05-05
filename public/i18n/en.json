@@ -175,6 +175,10 @@
   "mobile.meditation": "Meditation",
   "mobile.breathwork": "Breathwork",
   "mobile.mood": "Mood Score",
+  "mobile.navHome": "Home",
+  "mobile.navHealth": "Health",
+  "mobile.navTrack": "Track",
+  "mobile.navSettings": "Settings",
 
   "variant.darkTinted": "Dark Tinted",
   "variant.lightTinted": "Light Tinted",

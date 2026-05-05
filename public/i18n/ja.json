@@ -154,6 +154,10 @@
   "mobile.meditation": "\u7791\u60f3",
   "mobile.breathwork": "\u547c\u5438\u6cd5",
   "mobile.mood": "\u6c17\u5206",
+  "mobile.navHome": "\u30db\u30fc\u30e0",
+  "mobile.navHealth": "\u5065\u5eb7",
+  "mobile.navTrack": "\u8a18\u9332",
+  "mobile.navSettings": "\u8a2d\u5b9a",
 
   "variant.darkTinted": "ダーク着色",
   "variant.lightTinted": "ライト着色",

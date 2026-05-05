@@ -154,6 +154,10 @@
   "mobile.meditation": "\uba85\uc0c1",
   "mobile.breathwork": "\ud638\ud761",
   "mobile.mood": "\uae30\ubd84",
+  "mobile.navHome": "\ud648",
+  "mobile.navHealth": "\uac74\uac15",
+  "mobile.navTrack": "\ucd94\uc801",
+  "mobile.navSettings": "\uc124\uc815",
 
   "variant.darkTinted": "어두운 틴트",
   "variant.lightTinted": "밝은 틴트",
