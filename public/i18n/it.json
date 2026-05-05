@@ -98,5 +98,48 @@
   "gauge.fuel": "Carb",
   "gauge.level": "Livello",
   "btn.exportPalette": "Esporta palette",
-  "btn.exportStyle": "Esporta stile"
+  "btn.exportStyle": "Esporta stile",
+
+  "label.arcMode": "Modo arco",
+  "label.genParams": "Parametri di generazione",
+  "label.preview": "Anteprima",
+
+  "arc.linear": "Lineare",
+  "arc.circle": "Cerchio",
+  "arc.superellipse": "Superellisse",
+
+  "param.n": "N",
+  "param.m": "M",
+  "param.l": "L",
+  "param.lmin": "L\u2098\u1d62\u2099",
+  "param.lmax": "L\u2098\u2090\u2093",
+  "param.power": "Potenza",
+  "param.sigmoid": "Sigmoide",
+  "param.accLight": "Acc chiaro",
+  "param.accDark": "Acc scuro",
+  "param.alertL": "Allerta L",
+  "param.catL": "Cat. L",
+
+  "preview.layout": "Layout",
+  "preview.swatches": "Campioni",
+
+  "variant.darkTinted": "Scuro colorato",
+  "variant.lightTinted": "Chiaro colorato",
+  "variant.darkAccented": "Scuro accentuato",
+  "variant.lightAccented": "Chiaro accentuato",
+
+  "swatch.neutrals": "Neutri",
+  "swatch.primary": "Primario",
+  "swatch.secondary": "Secondario",
+  "swatch.alerts": "Avvisi",
+  "swatch.categories": "Categorie",
+
+  "layout.primaryAccent": "Accento primario",
+  "layout.secondaryAccent": "Accento secondario",
+  "layout.normalText": "Questo è testo normale.",
+  "layout.mutedText": "Questo è testo attenuato.",
+  "layout.active": "Attivo",
+  "layout.focus": "Fuoco",
+  "layout.default": "Predefinito",
+  "layout.disabled": "Disabilitato"
 }

@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web App Controls</title>
+  <title>Web App Colors</title>
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/layout.css" />
-  <link rel="stylesheet" href="css/styles/flat.css" />
 </head>
 <body>
 
@@ -14,7 +13,7 @@
        LEFT PANEL — Global Controls
        ════════════════════════════════════════════════════════════ -->
   <aside class="panel-left">
-    <h1 data-i18n="app.title">Web App Controls</h1>
+    <h1 data-i18n="app.title">Web App Colors</h1>
     <span class="version-tag" id="versionTag"></span>
 
     <!-- Row 1: Language + Font -->
@@ -36,43 +35,6 @@
           values='["Digital-7","Orbitron","System"]'
           data-i18n-values="font.digital7,font.orbitron,font.system"
           value="System"
-          columns="1"
-        ></segmented-control>
-      </div>
-    </div>
-
-    <!-- Row 2: Style + Theme + Colorization -->
-    <div class="ctrl-row ctrl-row-stc">
-      <div class="control-group">
-        <label data-i18n="label.style">Style</label>
-        <segmented-control
-          id="styleSelect"
-          keys='["Basic","Flat","Grad","Volume","Groove","Shadow"]'
-          values='["Basic","Flat","Grad","Volume","Groove","Shadow"]'
-          data-i18n-values="style.basic,style.flat,style.grad,style.volume,style.groove,style.shadow"
-          value="Flat"
-          columns="2"
-        ></segmented-control>
-      </div>
-      <div class="control-group">
-        <label data-i18n="label.theme">Theme</label>
-        <segmented-control
-          id="themeSelect"
-          keys='["Dark","Light","Both"]'
-          values='["Dark","Light","Both"]'
-          data-i18n-values="theme.dark,theme.light,theme.both"
-          value="Dark"
-          columns="1"
-        ></segmented-control>
-      </div>
-      <div class="control-group">
-        <label data-i18n="label.colorization">Colorization</label>
-        <segmented-control
-          id="saturationSelect"
-          keys='["Accents only","Whole layout"]'
-          values='["Accents only","Whole layout"]'
-          data-i18n-values="sat.accentsOnly,sat.wholeLayout"
-          value="Accents only"
           columns="1"
         ></segmented-control>
       </div>
@@ -101,221 +63,97 @@
     <!-- Dynamic colour pickers (built from JS based on accent count) -->
     <div id="pickerContainer" class="picker-row"></div>
 
+    <!-- Arc mode buttons -->
+    <div class="control-group">
+      <label data-i18n="label.arcMode">Arc Mode</label>
+      <div class="mode-buttons">
+        <button class="mode-btn active" id="btn-linear" data-mode="linear" data-i18n="arc.linear">Linear</button>
+        <button class="mode-btn" id="btn-circle" data-mode="circle" data-i18n="arc.circle">Circle</button>
+        <button class="mode-btn" id="btn-superellipse" data-mode="superellipse" data-i18n="arc.superellipse">Superellipse</button>
+      </div>
+    </div>
+
+    <!-- Generation sliders -->
+    <div class="control-group" id="gen-controls">
+      <label data-i18n="label.genParams">Generation Parameters</label>
+      <div class="slider-grid">
+        <span class="slider-label" data-i18n="param.n">N</span>
+        <input type="range" id="slider-n" min="5" max="20" value="12" step="1" class="range-slider" />
+        <span class="slider-val" id="n-value">12</span>
+
+        <span class="slider-label" data-i18n="param.m">M</span>
+        <input type="range" id="slider-m" min="3" max="7" value="5" step="1" class="range-slider" />
+        <span class="slider-val" id="m-value">5</span>
+
+        <span class="slider-label" data-i18n="param.l">L</span>
+        <input type="range" id="slider-l" min="3" max="7" value="7" step="1" class="range-slider" />
+        <span class="slider-val" id="l-value">7</span>
+
+        <span class="slider-label" data-i18n="param.lmin">L<sub>min</sub></span>
+        <input type="range" id="slider-lmin" min="0.05" max="0.90" value="0.05" step="0.01" class="range-slider" />
+        <span class="slider-val" id="lmin-value">0.05</span>
+
+        <span class="slider-label" data-i18n="param.lmax">L<sub>max</sub></span>
+        <input type="range" id="slider-lmax" min="0.10" max="1.00" value="0.95" step="0.01" class="range-slider" />
+        <span class="slider-val" id="lmax-value">0.95</span>
+
+        <span class="slider-label" id="power-label" data-i18n="param.power">Power</span>
+        <input type="range" id="slider-power" min="0.5" max="8" value="1.5" step="0.5" class="range-slider" />
+        <span class="slider-val" id="power-value">1.5</span>
+
+        <span class="slider-label" data-i18n="param.sigmoid">Sigmoid</span>
+        <input type="range" id="slider-sigmoid" min="0" max="5" value="3" step="0.1" class="range-slider" />
+        <span class="slider-val" id="sigmoid-value">3.0</span>
+
+        <span class="slider-label" data-i18n="param.accLight">Acc light</span>
+        <input type="range" id="slider-accent-light" min="0.10" max="0.95" value="0.55" step="0.01" class="range-slider" />
+        <span class="slider-val" id="accent-light-value">0.55</span>
+
+        <span class="slider-label" data-i18n="param.accDark">Acc dark</span>
+        <input type="range" id="slider-accent-dark" min="0.10" max="0.95" value="0.45" step="0.01" class="range-slider" />
+        <span class="slider-val" id="accent-dark-value">0.45</span>
+
+        <span class="slider-label" data-i18n="param.alertL">Alert L</span>
+        <input type="range" id="slider-alert-l" min="0.10" max="0.95" value="0.55" step="0.01" class="range-slider" />
+        <span class="slider-val" id="alert-l-value">0.55</span>
+
+        <span class="slider-label" data-i18n="param.catL">Cat. L</span>
+        <input type="range" id="slider-category-l" min="0.10" max="0.95" value="0.55" step="0.01" class="range-slider" />
+        <span class="slider-val" id="category-l-value">0.55</span>
+      </div>
+
+      <!-- Toggle rows -->
+      <div class="toggle-row">
+        <span class="slider-label" data-i18n="label.preview">Preview</span>
+        <div class="toggle-group">
+          <button class="toggle-btn active" id="btn-preview-layout" data-i18n="preview.layout">Layout</button>
+          <button class="toggle-btn" id="btn-preview-swatches" data-i18n="preview.swatches">Swatches</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Save / Export / Reset -->
     <div class="meta-actions">
-      <push-button id="btnSavePalette" label="Save" data-i18n-label="btn.save"></push-button>
-      <push-button id="btnExportPalette" label="Export palette" data-i18n-label="btn.exportPalette"></push-button>
-      <push-button id="btnExportStyle" label="Export style" data-i18n-label="btn.exportStyle"></push-button>
-      <push-button id="btnResetPalette" label="Reset" data-i18n-label="btn.reset"></push-button>
+      <button class="action-btn" id="btnSavePalette" data-i18n="btn.save">Save</button>
+      <button class="action-btn" id="btnExportPalette" data-i18n="btn.exportPalette">Export palette</button>
+      <button class="action-btn" id="btnResetPalette" data-i18n="btn.reset">Reset</button>
     </div>
 
     <div class="spacer"></div>
-
-    <!-- Disable All -->
-    <label class="disable-toggle">
-      <input type="checkbox" id="disableAll" />
-      <span data-i18n="label.disableAll">Disable all</span>
-    </label>
-
   </aside>
 
   <!-- ════════════════════════════════════════════════════════════
-       RIGHT PANEL — Preview
+       RIGHT PANEL — 2×2 Variant Preview
        ════════════════════════════════════════════════════════════ -->
-  <main class="panel-right">
-
-    <!-- ── Panel A: Typography, Buttons, Inputs, Toggles, Knobs ── -->
-    <section class="panel-a">
-      <!-- A1: Typography showcase -->
-      <div class="preview-panel text-showcase">
-        <h1 class="accent-title" data-i18n="heading.title">Title Heading</h1>
-        <h2 class="accent-header" data-i18n="heading.section">Section Header</h2>
-        <h3 class="accent-subheader" data-i18n="heading.subsection">Subsection</h3>
-        <p class="accent-comment" data-i18n="text.comment">Commentary text</p>
-        <p class="normal-text" data-i18n="text.preview">Normal Text: This preview shows main web UI elements in style and coloring selected in the global controls panel on the left.</p>
-      </div>
-
-      <!-- A2: Text fields (side by side) -->
-      <div class="preview-panel">
-        <div style="display:flex; gap:12px;">
-          <text-field style="flex:1; min-width:0;" caption="Text input" placeholder="Type here…" data-i18n-caption="field.textInput" data-i18n-placeholder="placeholder.typeHere"></text-field>
-          <text-field style="flex:1; min-width:0;" caption="Text input" placeholder="Disabled" data-i18n-caption="field.textInput" data-i18n-placeholder="placeholder.disabled" disabled data-permanent-disabled></text-field>
-        </div>
-      </div>
-
-      <!-- A3: Primary buttons row -->
-      <div class="preview-panel">
-        <div style="display:flex; gap:8px; flex-wrap:wrap;" class="btn-row-primary">
-          <push-button id="btnPlayPrimary" label="Pause" data-i18n-label="btn.pause" pressed style="--btn-min-width:110px;"></push-button>
-          <push-button id="btnStopPrimary" label="Stop" data-i18n-label="btn.stop" style="--btn-min-width:110px;"></push-button>
-          <push-button label="Disabled" data-i18n-label="btn.disabled" disabled data-permanent-disabled style="--btn-min-width:110px;"></push-button>
-        </div>
-        <div style="height:10px"></div>
-        <!-- Secondary buttons row: 1 rect + 4 square icon buttons -->
-        <div style="display:flex; gap:8px; flex-wrap:wrap;" class="btn-row-secondary">
-          <push-button id="btnPlaySecondary" label="Pause" data-i18n-label="btn.pause" accent="secondary" pressed style="--btn-min-width:110px;"></push-button>
-          <push-button id="btnGlobe" accent="secondary" pressed style="--btn-padding:10px;" icon='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>'></push-button>
-          <push-button id="btnLocation" accent="secondary" style="--btn-padding:10px;" icon='<svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>'></push-button>
-          <push-button id="btnEmail" accent="secondary" style="--btn-padding:10px;" icon='<svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>'></push-button>
-          <push-button id="btnSend" accent="secondary" disabled data-permanent-disabled style="--btn-padding:10px;" icon='<svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="m22 2-11 11"/></svg>'></push-button>
-        </div>
-      </div>
-
-      <!-- A3b: Segmented control example -->
-      <div class="preview-panel">
-        <segmented-control values='["Day","Week","Month"]' data-i18n-values="seg.day,seg.week,seg.month" value="Week" columns="3"></segmented-control>
-      </div>
-
-      <!-- A4: Checkboxes — 2 primary + 3 secondary -->
-      <div class="preview-panel">
-        <div style="display:flex; gap:18px; flex-wrap:wrap;">
-          <check-box label="Checked" data-i18n-label="check.checked" checked></check-box>
-          <check-box label="Unchecked" data-i18n-label="check.unchecked"></check-box>
-          <check-box label="Checked" data-i18n-label="check.checked" accent="secondary" checked></check-box>
-          <check-box label="Unchecked" data-i18n-label="check.unchecked" accent="secondary"></check-box>
-          <check-box label="Disabled" data-i18n-label="btn.disabled" accent="secondary" disabled data-permanent-disabled></check-box>
-        </div>
-      </div>
-
-      <!-- A5: Radio buttons — 2 primary + 3 secondary -->
-      <div class="preview-panel">
-        <div style="display:flex; gap:18px; flex-wrap:wrap;">
-          <radio-button name="demoA" label="Option A" data-i18n-label="radio.optionA" checked></radio-button>
-          <radio-button name="demoA" label="Option B" data-i18n-label="radio.optionB"></radio-button>
-          <radio-button name="demoB" label="Option C" data-i18n-label="radio.optionC" accent="secondary" checked></radio-button>
-          <radio-button name="demoB" label="Option D" data-i18n-label="radio.optionD" accent="secondary"></radio-button>
-          <radio-button name="demoB" label="Disabled" data-i18n-label="btn.disabled" accent="secondary" disabled data-permanent-disabled></radio-button>
-        </div>
-      </div>
-
-      <!-- A6: Toggle switches — 2 primary + 3 secondary -->
-      <div class="preview-panel">
-        <div style="display:flex; gap:18px; flex-wrap:wrap;">
-          <toggle-switch label="WiFi" data-i18n-label="toggle.wifi" checked></toggle-switch>
-          <toggle-switch label="BT" data-i18n-label="toggle.bluetooth"></toggle-switch>
-          <toggle-switch label="VPN" data-i18n-label="toggle.vpn" accent="secondary" checked></toggle-switch>
-          <toggle-switch label="Loc" data-i18n-label="toggle.location" accent="secondary"></toggle-switch>
-          <toggle-switch label="Off" data-i18n-label="btn.disabled" accent="secondary" disabled data-permanent-disabled></toggle-switch>
-        </div>
-      </div>
-
-      <!-- A7: Sliders — vertical left + horizontal right -->
-      <div class="preview-panel">
-        <div style="display:flex; gap:24px; align-items:center;">
-          <div style="display:flex; gap:20px; padding:8px 0;">
-            <vertical-slider mode="value" min="0" max="100" value="65" label="Value" data-i18n-label="slider.value"></vertical-slider>
-            <vertical-slider mode="progress" min="0" max="100" value="42" label="Progress" data-i18n-label="slider.progress"></vertical-slider>
-            <vertical-slider mode="range" min="0" max="100" value="30" value2="75" label="Range" data-i18n-label="slider.range"></vertical-slider>
-          </div>
-          <div style="flex:1; display:flex; flex-direction:column; gap:16px; min-width:0;">
-            <range-slider mode="value" min="0" max="100" value="60" label="Value" data-i18n-label="slider.value"></range-slider>
-            <range-slider mode="progress" min="0" max="100" value="42" label="Progress" data-i18n-label="slider.progress"></range-slider>
-            <range-slider mode="range" min="0" max="100" value="25" value2="75" label="Range" data-i18n-label="slider.range"></range-slider>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Panel B: Notifications & Rotary Knobs ── -->
-    <section class="panel-b">
-      <!-- B1: Notifications -->
-      <div class="preview-panel" style="display:flex; flex-direction:column; gap:10px;">
-        <notification-bar type="note" title="Note" message="This is an informational note." data-i18n-title="notif.note" data-i18n-message="notif.noteMsg"></notification-bar>
-        <notification-bar type="message" title="Message" message="You have 3 new messages." data-i18n-title="notif.message" data-i18n-message="notif.messageMsg"></notification-bar>
-        <notification-bar type="success" title="Success" message="Your changes have been saved." data-i18n-title="notif.success" data-i18n-message="notif.successMsg"></notification-bar>
-        <notification-bar type="warning" title="Warning" message="Disk space is running low." data-i18n-title="notif.warning" data-i18n-message="notif.warningMsg"></notification-bar>
-        <notification-bar type="error" title="Error" message="Connection to server lost." data-i18n-title="notif.error" data-i18n-message="notif.errorMsg"></notification-bar>
-      </div>
-
-      <!-- B2: Rotary knobs (wrapped in rect containers) -->
-      <div class="preview-panel">
-        <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-          <div class="gauge-box" style="width:170px; height:170px;">
-            <rotary-knob mode="continuous" min="0" max="100" value="42" step="1" label="Volume" data-i18n-label="knob.volume" flat></rotary-knob>
-          </div>
-          <div class="gauge-box" style="width:170px; height:170px;">
-            <rotary-knob mode="enum" values='["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]' data-i18n-values="day.mon,day.tue,day.wed,day.thu,day.fri,day.sat,day.sun" value="0" label="Day" data-i18n-label="knob.day" flat></rotary-knob>
-          </div>
-        </div>
-      </div>
-
-      <!-- B3: Circular gauges -->
-      <div class="preview-panel">
-        <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-          <div class="gauge-box" style="width:150px; height:160px;">
-            <circular-gauge value="62" min="0" max="100" start-angle="225" end-angle="135" segments="10" label="Speed" data-i18n-label="gauge.speed"></circular-gauge>
-          </div>
-          <div class="gauge-box" style="width:150px; height:160px;">
-            <circular-gauge value="38" min="0" max="100" start-angle="225" end-angle="135" segments="8" grow-segments label="RPM" data-i18n-label="gauge.rpm"></circular-gauge>
-          </div>
-        </div>
-      </div>
-
-      <!-- B4: Linear gauges -->
-      <div class="preview-panel">
-        <div style="display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap;">
-          <div class="gauge-box" style="width:60px; height:180px;">
-            <linear-gauge value="55" min="0" max="100" direction="vertical" segments="8" label="Temp" data-i18n-label="gauge.temp"></linear-gauge>
-          </div>
-          <div class="gauge-box" style="width:60px; height:180px;">
-            <linear-gauge value="72" min="0" max="100" direction="vertical" segments="10" grow-segments label="Fuel" data-i18n-label="gauge.fuel"></linear-gauge>
-          </div>
-          <div class="gauge-box" style="flex:1; min-width:160px; height:60px;">
-            <linear-gauge value="45" min="0" max="100" direction="horizontal" segments="12" label="Level" data-i18n-label="gauge.level"></linear-gauge>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Panel C: Charts & Calendars ── -->
-    <section class="panel-c">
-      <!-- C1: Bar chart -->
-      <div class="preview-panel">
-        <bar-chart
-          data-i18n-title="chart.monthlyRevenue"
-          title="Monthly Revenue"
-          data="[42, 58, 35, 72, 65, 88, 54]"
-          labels='["Jan","Feb","Mar","Apr","May","Jun","Jul"]'
-        ></bar-chart>
-      </div>
-
-      <!-- C2: Area chart (two series) -->
-      <div class="preview-panel">
-        <line-chart
-          data-i18n-title="chart.traffic"
-          title="Traffic — Sessions vs Bounces"
-          mode="area"
-          data="[[120,145,160,180,210,195,230,250,220,240],[40,55,50,60,70,65,80,90,75,85]]"
-          labels='["W1","W2","W3","W4","W5","W6","W7","W8","W9","W10"]'
-        ></line-chart>
-      </div>
-
-      <!-- C3: Activity chart (step counts, 2-day period, 3h samples) -->
-      <div class="preview-panel">
-        <line-chart
-          data-i18n-title="chart.activity"
-          title="Daily Activity — Step Count"
-          mode="activity"
-          data="[[200,80,50,30,120,850,2400,5200,3800,1200,600,1800,4500,3200,1500,800,250]]"
-          labels='["0","","","","","12","","","24","","","","","12","","","48"]'
-        ></line-chart>
-      </div>
-
-      <!-- C4: Calendars (single date + range) side by side -->
-      <div class="preview-panel calendar-row">
-        <date-calendar></date-calendar>
-        <date-calendar mode="range" value="2026-05-10" end="2026-05-18"></date-calendar>
-      </div>
-    </section>
-
+  <main class="panel-right" id="mainPanel">
+    <div class="variant-grid" id="variantGrid"></div>
   </main>
 
   <!-- ════════════════════════════════════════════════════════════
        Scripts
        ════════════════════════════════════════════════════════════ -->
-  <script type="module" src="js/controls/flat.js"></script>
-  <script type="module" src="js/controls/rotary-knob.js"></script>
-  <script type="module" src="js/controls/gauges.js"></script>
+  <script type="module" src="js/components/segmented-control.js"></script>
+  <script type="module" src="js/components/color-picker.js"></script>
   <script type="module" src="js/app.js"></script>
 
 </body>

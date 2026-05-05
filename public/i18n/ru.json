@@ -98,5 +98,48 @@
   "gauge.fuel": "Топл",
   "gauge.level": "Уров",
   "btn.exportPalette": "Эксп. палитру",
-  "btn.exportStyle": "Эксп. стиль"
+  "btn.exportStyle": "Эксп. стиль",
+
+  "label.arcMode": "Режим дуги",
+  "label.genParams": "Параметры генерации",
+  "label.preview": "Превью",
+
+  "arc.linear": "Линейный",
+  "arc.circle": "Круг",
+  "arc.superellipse": "Суперэллипс",
+
+  "param.n": "N",
+  "param.m": "M",
+  "param.l": "L",
+  "param.lmin": "L\u2098\u1d62\u2099",
+  "param.lmax": "L\u2098\u2090\u2093",
+  "param.power": "Степень",
+  "param.sigmoid": "Сигмоид",
+  "param.accLight": "Акц. свет",
+  "param.accDark": "Акц. тень",
+  "param.alertL": "Уведом. L",
+  "param.catL": "Кат. L",
+
+  "preview.layout": "Макет",
+  "preview.swatches": "Образцы",
+
+  "variant.darkTinted": "Тёмный тонир.",
+  "variant.lightTinted": "Светлый тонир.",
+  "variant.darkAccented": "Тёмный акцент.",
+  "variant.lightAccented": "Светлый акцент.",
+
+  "swatch.neutrals": "Нейтральные",
+  "swatch.primary": "Основной",
+  "swatch.secondary": "Вторичный",
+  "swatch.alerts": "Оповещения",
+  "swatch.categories": "Категории",
+
+  "layout.primaryAccent": "Осн. акцент",
+  "layout.secondaryAccent": "Втор. акцент",
+  "layout.normalText": "Это обычный текст.",
+  "layout.mutedText": "Это приглушённый текст.",
+  "layout.active": "Активно",
+  "layout.focus": "Фокус",
+  "layout.default": "Обычный",
+  "layout.disabled": "Откл."
 }

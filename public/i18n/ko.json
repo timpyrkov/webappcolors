@@ -98,5 +98,48 @@
   "gauge.fuel": "연료",
   "gauge.level": "레벨",
   "btn.exportPalette": "팔레트 내보내기",
-  "btn.exportStyle": "스타일 내보내기"
+  "btn.exportStyle": "스타일 내보내기",
+
+  "label.arcMode": "아크 모드",
+  "label.genParams": "생성 매개변수",
+  "label.preview": "미리보기",
+
+  "arc.linear": "선형",
+  "arc.circle": "원형",
+  "arc.superellipse": "초타원",
+
+  "param.n": "N",
+  "param.m": "M",
+  "param.l": "L",
+  "param.lmin": "L\u2098\u1d62\u2099",
+  "param.lmax": "L\u2098\u2090\u2093",
+  "param.power": "거듭제곱",
+  "param.sigmoid": "시그모이드",
+  "param.accLight": "밝은 강조",
+  "param.accDark": "어두운 강조",
+  "param.alertL": "알림 L",
+  "param.catL": "카테고리 L",
+
+  "preview.layout": "레이아웃",
+  "preview.swatches": "견본",
+
+  "variant.darkTinted": "어두운 틴트",
+  "variant.lightTinted": "밝은 틴트",
+  "variant.darkAccented": "어두운 강조",
+  "variant.lightAccented": "밝은 강조",
+
+  "swatch.neutrals": "중립색",
+  "swatch.primary": "기본색",
+  "swatch.secondary": "보조색",
+  "swatch.alerts": "알림",
+  "swatch.categories": "카테고리",
+
+  "layout.primaryAccent": "기본 강조",
+  "layout.secondaryAccent": "보조 강조",
+  "layout.normalText": "이것은 일반 텍스트입니다.",
+  "layout.mutedText": "이것은 흐린 텍스트입니다.",
+  "layout.active": "활성",
+  "layout.focus": "포커스",
+  "layout.default": "기본",
+  "layout.disabled": "비활성"
 }

@@ -98,5 +98,48 @@
   "gauge.fuel": "燃料",
   "gauge.level": "レベル",
   "btn.exportPalette": "パレット出力",
-  "btn.exportStyle": "スタイル出力"
+  "btn.exportStyle": "スタイル出力",
+
+  "label.arcMode": "アークモード",
+  "label.genParams": "生成パラメータ",
+  "label.preview": "プレビュー",
+
+  "arc.linear": "リニア",
+  "arc.circle": "サークル",
+  "arc.superellipse": "スーパー楕円",
+
+  "param.n": "N",
+  "param.m": "M",
+  "param.l": "L",
+  "param.lmin": "L\u2098\u1d62\u2099",
+  "param.lmax": "L\u2098\u2090\u2093",
+  "param.power": "べき乗",
+  "param.sigmoid": "シグモイド",
+  "param.accLight": "明るい強調",
+  "param.accDark": "暗い強調",
+  "param.alertL": "アラート L",
+  "param.catL": "カテゴリ L",
+
+  "preview.layout": "レイアウト",
+  "preview.swatches": "スウォッチ",
+
+  "variant.darkTinted": "ダーク着色",
+  "variant.lightTinted": "ライト着色",
+  "variant.darkAccented": "ダーク強調",
+  "variant.lightAccented": "ライト強調",
+
+  "swatch.neutrals": "ニュートラル",
+  "swatch.primary": "プライマリ",
+  "swatch.secondary": "セカンダリ",
+  "swatch.alerts": "アラート",
+  "swatch.categories": "カテゴリ",
+
+  "layout.primaryAccent": "プライマリ強調",
+  "layout.secondaryAccent": "セカンダリ強調",
+  "layout.normalText": "通常のテキストです。",
+  "layout.mutedText": "淡いテキストです。",
+  "layout.active": "アクティブ",
+  "layout.focus": "フォーカス",
+  "layout.default": "デフォルト",
+  "layout.disabled": "無効"
 }

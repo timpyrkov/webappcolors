@@ -98,5 +98,48 @@
   "gauge.fuel": "Kraft",
   "gauge.level": "Pegel",
   "btn.exportPalette": "Palette export.",
-  "btn.exportStyle": "Stil exportieren"
+  "btn.exportStyle": "Stil exportieren",
+
+  "label.arcMode": "Bogenmodus",
+  "label.genParams": "Generierungsparameter",
+  "label.preview": "Vorschau",
+
+  "arc.linear": "Linear",
+  "arc.circle": "Kreis",
+  "arc.superellipse": "Superellipse",
+
+  "param.n": "N",
+  "param.m": "M",
+  "param.l": "L",
+  "param.lmin": "L\u2098\u1d62\u2099",
+  "param.lmax": "L\u2098\u2090\u2093",
+  "param.power": "Potenz",
+  "param.sigmoid": "Sigmoid",
+  "param.accLight": "Akz. hell",
+  "param.accDark": "Akz. dunkel",
+  "param.alertL": "Warnung L",
+  "param.catL": "Kat. L",
+
+  "preview.layout": "Layout",
+  "preview.swatches": "Farbfelder",
+
+  "variant.darkTinted": "Dunkel getönt",
+  "variant.lightTinted": "Hell getönt",
+  "variant.darkAccented": "Dunkel akzentuiert",
+  "variant.lightAccented": "Hell akzentuiert",
+
+  "swatch.neutrals": "Neutral",
+  "swatch.primary": "Primär",
+  "swatch.secondary": "Sekundär",
+  "swatch.alerts": "Warnungen",
+  "swatch.categories": "Kategorien",
+
+  "layout.primaryAccent": "Primärakzent",
+  "layout.secondaryAccent": "Sekundärakzent",
+  "layout.normalText": "Dies ist normaler Text.",
+  "layout.mutedText": "Dies ist gedämpfter Text.",
+  "layout.active": "Aktiv",
+  "layout.focus": "Fokus",
+  "layout.default": "Standard",
+  "layout.disabled": "Deaktiviert"
 }

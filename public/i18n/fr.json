@@ -98,5 +98,48 @@
   "gauge.fuel": "Carb",
   "gauge.level": "Niveau",
   "btn.exportPalette": "Exporter palette",
-  "btn.exportStyle": "Exporter style"
+  "btn.exportStyle": "Exporter style",
+
+  "label.arcMode": "Mode d'arc",
+  "label.genParams": "Paramètres de génération",
+  "label.preview": "Aperçu",
+
+  "arc.linear": "Linéaire",
+  "arc.circle": "Cercle",
+  "arc.superellipse": "Superellipse",
+
+  "param.n": "N",
+  "param.m": "M",
+  "param.l": "L",
+  "param.lmin": "L\u2098\u1d62\u2099",
+  "param.lmax": "L\u2098\u2090\u2093",
+  "param.power": "Puissance",
+  "param.sigmoid": "Sigmoïde",
+  "param.accLight": "Acc clair",
+  "param.accDark": "Acc foncé",
+  "param.alertL": "Alerte L",
+  "param.catL": "Cat. L",
+
+  "preview.layout": "Mise en page",
+  "preview.swatches": "Échantillons",
+
+  "variant.darkTinted": "Sombre teinté",
+  "variant.lightTinted": "Clair teinté",
+  "variant.darkAccented": "Sombre accentué",
+  "variant.lightAccented": "Clair accentué",
+
+  "swatch.neutrals": "Neutres",
+  "swatch.primary": "Primaire",
+  "swatch.secondary": "Secondaire",
+  "swatch.alerts": "Alertes",
+  "swatch.categories": "Catégories",
+
+  "layout.primaryAccent": "Accent primaire",
+  "layout.secondaryAccent": "Accent secondaire",
+  "layout.normalText": "Ceci est du texte normal.",
+  "layout.mutedText": "Ceci est du texte atténué.",
+  "layout.active": "Actif",
+  "layout.focus": "Focus",
+  "layout.default": "Défaut",
+  "layout.disabled": "Désactivé"
 }

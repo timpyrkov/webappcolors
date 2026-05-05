@@ -363,30 +363,30 @@ On boot, `app.js` calls `/api/capabilities`:
 
 ## 6. Implementation phases
 
-### Phase 1 — Demolition & scaffold ✅ planning done
+### Phase 1 — Demolition & scaffold ✅
 
-- [ ] Delete `public/css/styles/`, `public/js/controls/`, `style-manager.js`, `tokens.js`.
-- [ ] Strip showcase markup from `index.html`; remove style/theme/saturation
+- [x] Delete `public/css/styles/`, `public/js/controls/`, `style-manager.js`, `tokens.js`.
+- [x] Strip showcase markup from `index.html`; remove style/theme/saturation
       controls from the left panel.
-- [ ] Strip control styles from `layout.css`; add a placeholder 2×2 grid.
-- [ ] Remove `/api/export-style` from `server.js`; drop unused dependencies.
-- [ ] Smoke test: app boots, left panel shows palette selector + meta, right
+- [x] Strip control styles from `layout.css`; add a placeholder 2×2 grid.
+- [x] Remove `/api/export-style` from `server.js`; drop unused dependencies.
+- [x] Smoke test: app boots, left panel shows palette selector + meta, right
       panel shows an empty 2×2 grid.
 
-### Phase 2 — Token model & generator skeleton
+### Phase 2 — Token model & generator skeleton ✅
 
-- [ ] Update `tokens.css` with the new `--bg-N` / `--fg-N` token set
+- [x] Update `tokens.css` with the new `--bg-N` / `--fg-N` token set
       (default values for dark theme).
-- [ ] Rewrite `gen_colors.js` per §4 (initial straightforward implementation).
-- [ ] Wire `app.js` to call `generatePalette` 4× and apply the four token sets
+- [x] Rewrite `gen_colors.js` per §4 (initial straightforward implementation).
+- [x] Wire `app.js` to call `generatePalette` 4× and apply the four token sets
       to the four sub-panels via inline CSS variables.
 
-### Phase 3 — Swatch grid component
+### Phase 3 — Swatch grid component ✅
 
-- [ ] Implement `<swatch-grid>`: 5 rows × 5 columns of rectangles, each
+- [x] Implement `<swatch-grid>`: 5 rows × 5 columns of rectangles, each
       showing token name + hex.
-- [ ] Implement typography block (title, headings, paragraph) above the grid.
-- [ ] Verify all four quadrants render correctly with the same palette but
+- [x] Implement typography block (title, headings, paragraph) above the grid.
+- [x] Verify all four quadrants render correctly with the same palette but
       different theme/saturation combos.
 
 ### Phase 4 — Smart gradient tool & playground

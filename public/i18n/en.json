@@ -119,5 +119,48 @@
   "gauge.rpm": "RPM",
   "gauge.temp": "Temp",
   "gauge.fuel": "Fuel",
-  "gauge.level": "Level"
+  "gauge.level": "Level",
+
+  "label.arcMode": "Arc Mode",
+  "label.genParams": "Generation Parameters",
+  "label.preview": "Preview",
+
+  "arc.linear": "Linear",
+  "arc.circle": "Circle",
+  "arc.superellipse": "Superellipse",
+
+  "param.n": "N",
+  "param.m": "M",
+  "param.l": "L",
+  "param.lmin": "L\u2098\u1d62\u2099",
+  "param.lmax": "L\u2098\u2090\u2093",
+  "param.power": "Power",
+  "param.sigmoid": "Sigmoid",
+  "param.accLight": "Acc light",
+  "param.accDark": "Acc dark",
+  "param.alertL": "Alert L",
+  "param.catL": "Cat. L",
+
+  "preview.layout": "Layout",
+  "preview.swatches": "Swatches",
+
+  "variant.darkTinted": "Dark Tinted",
+  "variant.lightTinted": "Light Tinted",
+  "variant.darkAccented": "Dark Accented",
+  "variant.lightAccented": "Light Accented",
+
+  "swatch.neutrals": "Neutrals",
+  "swatch.primary": "Primary",
+  "swatch.secondary": "Secondary",
+  "swatch.alerts": "Alerts",
+  "swatch.categories": "Categories",
+
+  "layout.primaryAccent": "Primary accent",
+  "layout.secondaryAccent": "Secondary accent",
+  "layout.normalText": "This is normal text.",
+  "layout.mutedText": "This is muted text.",
+  "layout.active": "Active",
+  "layout.focus": "Focus",
+  "layout.default": "Default",
+  "layout.disabled": "Disabled"
 }

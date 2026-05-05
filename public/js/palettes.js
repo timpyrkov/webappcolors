@@ -4,11 +4,7 @@
  * Each palette has:
  *   - Four themed display names (gems, natural, flower, beverage)
  *   - A `main` hex colour whose hue/chroma tint backgrounds & neutrals
- *   - An `accents` array of 2, 3, or 5+ hex colours:
- *       2 → interpolated to 5 stops via OKLCh
- *       3 → interpolated via midpoint to 5 stops
- *     5+ → used as-is for --primary-accent-1..N
- *   - A `special` field for non-standard generation rules (null = standard)
+ *   - An `accents` array of 2–7+ hex colours driving accent and category generation
  */
 
 export const PALETTES = {
@@ -19,52 +15,46 @@ export const PALETTES = {
     gems: "Ruby", natural: "Sunset", flower: "Rose", beverage: "Wine",
     main:    "#3a4160",
     accents: ["#9b2335", "#e04858"],
-    special: null,
   },
 
-  // ── 2. Gold ───────────────────────────────────────────────────────
-  // Warm burnished orange-to-gold on muted navy. Regal and warm.
+  // ── 2. Gold ──────────────────────────────────────────────────────
+  // Orange-to-gold on warm umber. Regal and warm.
   gold: {
-    gems: "Gold", natural: "Desert", flower: "Sunflower", beverage: "Bourbon",
-    main:    "#38405a",
-    accents: ["#c07828", "#f0c038"],
-    special: null,
+    gems: "Gold", natural: "Mountain", flower: "Marigold", beverage: "Whisky",
+    main:    "#987b60",
+    accents: ["#ff6e0b", "#f0c038"],
   },
 
   // ── 3. Anthracite ─────────────────────────────────────────────────
   // Orange-gold accents on dark olive-sage. Earthy and organic.
   anthracite: {
-    gems: "Anthracite", natural: "Spring", flower: "Daisy", beverage: "Brandy",
-    main:    "#4a5240",
-    accents: ["#b87830", "#e8c450"],
-    special: null,
+    gems: "Anthracite", natural: "Typhoon", flower: "Sunflower", beverage: "Brandy",
+    main:    "#1d2019",
+    accents: ["#ff6e0b", "#f0c038"],
   },
 
-  // ── 4. Amber ──────────────────────────────────────────────────────
-  // Amber-orange-to-gold on warm umber. The default/reference palette.
+  // ── 4. Amber ──────────────────────────────────────────────────
+  // Cyan → green → orange on neutral teal-grey. Jungle-botanical feel.
   amber: {
-    gems: "Amber", natural: "Autumn", flower: "Marigold", beverage: "Whisky",
-    main:    "#6a5238",
-    accents: ["#d08028", "#f0c030"],
-    special: null,
+    gems: "Amber", natural: "Spring", flower: "Daisy", beverage: "Gin",
+    main:    "#3a4160",
+    accents: ["#ff6e0b", "#f0c038"],
   },
 
-  // ── 5. Onyx ───────────────────────────────────────────────────────
+  // ── 5. Diamond ───────────────────────────────────────────────────────
+  // Orange-gold accents on steel muted navy. The default classic palette.
+  diamond: {
+    gems: "Diamond", natural: "Desert", flower: "Magnolia", beverage: "Bourbon",
+    main:    "#3a4160",
+    accents: ["#d88b07", "#f0c038"],
+  },
+
+  // ── 6. Onyx ───────────────────────────────────────────────────────
   // Olive-green accents on coffee-brown. Earthy and grounded.
   onyx: {
-    gems: "Onyx", natural: "Mountain", flower: "Olive", beverage: "Coffee",
-    main:    "#5a4a38",
-    accents: ["#688030", "#a8c048"],
-    special: null,
-  },
-
-  // ── 6. Malachite ──────────────────────────────────────────────────
-  // Cyan → green → orange on neutral teal-grey. Jungle-botanical feel.
-  malachite: {
-    gems: "Malachite", natural: "Forest", flower: "Ginkgo", beverage: "Mojito",
-    main:    "#485858",
-    accents: ["#20a8a0", "#288858", "#d09838"],
-    special: null,
+    gems: "Onyx", natural: "Forest", flower: "Olive", beverage: "Coffee",
+    main:    "#987b60",
+    accents: ["#347a0d", "#a9ab00"],
   },
 
   // ── 7. Emerald ────────────────────────────────────────────────────
@@ -73,16 +63,14 @@ export const PALETTES = {
     gems: "Emerald", natural: "Monsoon", flower: "Eucalyptus", beverage: "Absinthe",
     main:    "#3d4d68",
     accents: ["#2870a8", "#38c0a8"],
-    special: null,
   },
 
   // ── 8. Topaz ──────────────────────────────────────────────────────
   // Tron Legacy–inspired: bright cyan glow on dark steel-blue.
   topaz: {
     gems: "Topaz", natural: "Lagoon", flower: "Iris", beverage: "Tonic",
-    main:    "#283848",
-    accents: ["#0890c0", "#40e0f0"],
-    special: null,
+    main:    "#203b43",
+    accents: ["#24bcd0", "#23bfba"],
   },
 
   // ── 9. Sapphire ───────────────────────────────────────────────────
@@ -90,8 +78,7 @@ export const PALETTES = {
   sapphire: {
     gems: "Sapphire", natural: "Midnight", flower: "Lavender", beverage: "Curaçao",
     main:    "#403060",
-    accents: ["#2858b0", "#48b8e0"],
-    special: null,
+    accents: ["#2858b0", "#4eb9e0", "#a43391", "#7b53a3"],
   },
 
   // ── 10. Amethyst ──────────────────────────────────────────────────
@@ -99,8 +86,7 @@ export const PALETTES = {
   amethyst: {
     gems: "Amethyst", natural: "Twilight", flower: "Orchid", beverage: "Cognac",
     main:    "#483060",
-    accents: ["#a03068", "#d8a840"],
-    special: null,
+    accents: ["#a03068", "#d8a840", "#9e3f8d", "#2c0056"],
   },
 
   // ── 11. Opal ──────────────────────────────────────────────────────
@@ -109,7 +95,6 @@ export const PALETTES = {
     gems: "Opal", natural: "Dusk", flower: "Camellia", beverage: "Liquor",
     main:    "#384560",
     accents: ["#b03858", "#f0b090"],
-    special: null,
   },
 
   // ── 12. Pearl ─────────────────────────────────────────────────────
@@ -118,34 +103,30 @@ export const PALETTES = {
     gems: "Pearl", natural: "Morning", flower: "Sakura", beverage: "Latte",
     main:    "#584858",
     accents: ["#fff9b8", "#ffc88a", "#a8d8ff"],
-    special: null,
   },
 
   // ── 13. Marble ────────────────────────────────────────────────────
   // Rose-to-teal on blue-grey. Hospital/healthcare style.
   marble: {
     gems: "Marble", natural: "Mist", flower: "Maple", beverage: "Cider",
-    main:    "#485060",
-    accents: ["#c04870", "#40c0a8"],
-    special: null,
+    main:    "#589ad5",
+    accents: ["#972351", "#b06255", "#44c0a4", "#008790"],
   },
 
-  // ── 14. Quartz ────────────────────────────────────────────────────
+  // ── 14. Agate ────────────────────────────────────────────────────
   // Monokai / Gruvbox–inspired: 7 explicit accent colours on warm olive-dark.
-  quartz: {
-    gems: "Quartz", natural: "Typhoon", flower: "Oak", beverage: "Gin",
+  agate: {
+    gems: "Agate", natural: "Autumn", flower: "Oak", beverage: "Mojito",
     main:    "#32302f",
-    accents: ["#fb4934", "#fe8019", "#fabd2f", "#b8bb26", "#8ec07c", "#83a598", "#d3869b"],
-    special: null,
+    accents: ["#fe8019", "#fabd2f", "#b8bb26", "#8ec07c", "#83a598", "#d3869b", "#fb4934"],
   },
 
-  // ── 15. Diamond ───────────────────────────────────────────────────
+  // ── 15. Quartz ───────────────────────────────────────────────────
   // Monochrome: all neutrals with minimal chroma. Subtle cool-steel tint.
-  diamond: {
-    gems: "Diamond", natural: "Arctic", flower: "Edelweiss", beverage: "Schnapps",
+  quartz: {
+    gems: "Quartz", natural: "Arctic", flower: "Edelweiss", beverage: "Schnapps",
     main:    "#686870",
     accents: ["#404048", "#b8b8c0"],
-    special: { primaryFromLightness: true },
   },
 };
 
@@ -162,33 +143,33 @@ export const PALETTE_I18N = {
   },
   gold: {
     gems:     { en: "Gold",       es: "Oro",         it: "Oro",         fr: "Or",          de: "Gold",        ru: "Золото",     ko: "골드",     ja: "ゴールド",   zh: "黄金" },
-    natural:  { en: "Desert",     es: "Desierto",    it: "Deserto",     fr: "Désert",      de: "Wüste",       ru: "Пустыня",    ko: "사막",     ja: "砂漠",      zh: "沙漠" },
-    flower:   { en: "Sunflower",  es: "Girasol",     it: "Girasole",    fr: "Tournesol",   de: "Sonnenblume", ru: "Подсолнух",  ko: "해바라기",   ja: "ひまわり",   zh: "向日葵" },
-    beverage: { en: "Bourbon",    es: "Bourbon",     it: "Bourbon",     fr: "Bourbon",     de: "Bourbon",     ru: "Бурбон",     ko: "버번",     ja: "バーボン",   zh: "波旁" },
+    natural:  { en: "Mountain",   es: "Montaña",     it: "Montagna",    fr: "Montagne",    de: "Berg",        ru: "Горы",       ko: "산",       ja: "山",        zh: "山脉" },
+    flower:   { en: "Marigold",   es: "Caléndula",   it: "Calendula",   fr: "Souci",       de: "Ringelblume", ru: "Календула",  ko: "금잔화",    ja: "マリーゴールド", zh: "万寿菊" },
+    beverage: { en: "Whisky",     es: "Whisky",      it: "Whisky",      fr: "Whisky",      de: "Whisky",      ru: "Виски",      ko: "위스키",    ja: "ウイスキー",  zh: "威士忌" },
   },
   anthracite: {
     gems:     { en: "Anthracite", es: "Antracita",   it: "Antracite",   fr: "Anthracite",  de: "Anthrazit",   ru: "Антрацит",   ko: "무연탄",    ja: "無煙炭",    zh: "无烟煤" },
-    natural:  { en: "Spring",     es: "Primavera",   it: "Primavera",   fr: "Printemps",   de: "Frühling",    ru: "Весна",      ko: "봄",       ja: "春",        zh: "春天" },
-    flower:   { en: "Daisy",      es: "Margarita",   it: "Margherita",  fr: "Marguerite",  de: "Gänseblümchen", ru: "Ромашка",  ko: "데이지",    ja: "デイジー",   zh: "雏菊" },
+    natural:  { en: "Typhoon",    es: "Tifón",       it: "Tifone",      fr: "Typhon",      de: "Taifun",      ru: "Тайфун",     ko: "태풍",     ja: "台風",      zh: "台风" },
+    flower:   { en: "Sunflower",  es: "Girasol",     it: "Girasole",    fr: "Tournesol",   de: "Sonnenblume", ru: "Подсолнух", ko: "해바라기",  ja: "向日葵",    zh: "向日葵" },
     beverage: { en: "Brandy",     es: "Brandy",      it: "Brandy",      fr: "Brandy",      de: "Weinbrand",   ru: "Бренди",     ko: "브랜디",    ja: "ブランデー",  zh: "白兰地" },
   },
   amber: {
     gems:     { en: "Amber",      es: "Ámbar",       it: "Ambra",       fr: "Ambre",       de: "Bernstein",   ru: "Янтарь",     ko: "호박",     ja: "琥珀",      zh: "琥珀" },
-    natural:  { en: "Autumn",     es: "Otoño",       it: "Autunno",     fr: "Automne",     de: "Herbst",      ru: "Осень",      ko: "가을",     ja: "秋",        zh: "秋天" },
-    flower:   { en: "Marigold",   es: "Caléndula",   it: "Calendula",   fr: "Souci",       de: "Ringelblume", ru: "Бархатцы",   ko: "금잔화",    ja: "マリーゴールド", zh: "万寿菊" },
-    beverage: { en: "Whisky",     es: "Whisky",      it: "Whisky",      fr: "Whisky",      de: "Whisky",      ru: "Виски",      ko: "위스키",    ja: "ウイスキー",  zh: "威士忌" },
+    natural:  { en: "Spring",     es: "Primavera",   it: "Primavera",   fr: "Printemps",   de: "Frühling",    ru: "Весна",      ko: "봄",       ja: "春",        zh: "春天" },
+    flower:   { en: "Daisy",      es: "Margarita",   it: "Margherita",  fr: "Marguerite",  de: "Gänseblümchen", ru: "Ромашка",  ko: "데이지",    ja: "デイジー",   zh: "雏菊" },
+    beverage: { en: "Gin",        es: "Ginebra",     it: "Gin",         fr: "Gin",         de: "Gin",         ru: "Джин",       ko: "진",       ja: "ジン",      zh: "杜松子酒" },
+  },
+  diamond: {
+    gems:     { en: "Diamond",    es: "Diamante",    it: "Diamante",    fr: "Diamant",     de: "Diamant",     ru: "Алмаз",      ko: "다이아몬드",  ja: "ダイヤモンド", zh: "钻石" },
+    natural:  { en: "Desert",     es: "Desierto",    it: "Deserto",     fr: "Désert",      de: "Wüste",       ru: "Пустыня",    ko: "사막",     ja: "砂漠",      zh: "沙漠" },
+    flower:   { en: "Magnolia",   es: "Magnolia",    it: "Magnolia",    fr: "Magnolia",    de: "Magnolie",    ru: "Магнолия",   ko: "백합",     ja: "Magnolia",  zh: "木兰" },
+    beverage: { en: "Bourbon",    es: "Bourbon",     it: "Bourbon",     fr: "Bourbon",     de: "Bourbon",     ru: "Бурбон",     ko: "버번",     ja: "バーボン",   zh: "波旁" },
   },
   onyx: {
     gems:     { en: "Onyx",       es: "Ónix",        it: "Onice",       fr: "Onyx",        de: "Onyx",        ru: "Оникс",      ko: "오닉스",    ja: "オニキス",   zh: "玛瑙" },
-    natural:  { en: "Mountain",   es: "Montaña",     it: "Montagna",    fr: "Montagne",    de: "Berg",        ru: "Горы",       ko: "산",       ja: "山",        zh: "山脉" },
+    natural:  { en: "Forest",     es: "Bosque",      it: "Foresta",     fr: "Forêt",       de: "Wald",        ru: "Лес",        ko: "숲",       ja: "森",        zh: "森林" },
     flower:   { en: "Olive",      es: "Olivo",       it: "Olivo",       fr: "Olivier",     de: "Olive",       ru: "Олива",      ko: "올리브",    ja: "オリーブ",   zh: "橄榄" },
     beverage: { en: "Coffee",     es: "Café",        it: "Caffè",       fr: "Café",        de: "Kaffee",      ru: "Кофе",       ko: "커피",     ja: "コーヒー",   zh: "咖啡" },
-  },
-  malachite: {
-    gems:     { en: "Malachite",  es: "Malaquita",   it: "Malachite",   fr: "Malachite",   de: "Malachit",    ru: "Малахит",    ko: "공작석",    ja: "マラカイト",  zh: "孔雀石" },
-    natural:  { en: "Forest",     es: "Bosque",      it: "Foresta",     fr: "Forêt",       de: "Wald",        ru: "Лес",        ko: "숲",       ja: "森",        zh: "森林" },
-    flower:   { en: "Ginkgo",     es: "Ginkgo",      it: "Ginkgo",      fr: "Ginkgo",      de: "Ginkgo",      ru: "Гинкго",     ko: "은행나무",   ja: "イチョウ",   zh: "银杏" },
-    beverage: { en: "Mojito",     es: "Mojito",      it: "Mojito",      fr: "Mojito",      de: "Mojito",      ru: "Мохито",     ko: "모히토",    ja: "モヒート",   zh: "莫吉托" },
   },
   emerald: {
     gems:     { en: "Emerald",    es: "Esmeralda",   it: "Smeraldo",    fr: "Émeraude",    de: "Smaragd",     ru: "Изумруд",    ko: "에메랄드",   ja: "エメラルド",  zh: "祖母绿" },
@@ -232,14 +213,14 @@ export const PALETTE_I18N = {
     flower:   { en: "Maple",      es: "Arce",        it: "Acero",       fr: "Érable",      de: "Ahorn",       ru: "Клён",       ko: "단풍",     ja: "カエデ",    zh: "枫树" },
     beverage: { en: "Cider",      es: "Sidra",       it: "Sidro",       fr: "Cidre",       de: "Apfelwein",   ru: "Сидр",       ko: "사이다",    ja: "サイダー",   zh: "苹果酒" },
   },
+  agate: {
+    gems:     { en: "Agate",      es: "Ágata",       it: "Agata",       fr: "Agate",       de: "Agat",        ru: "Агат",       ko: "아가트",    ja: "アガート",   zh: "玛瑙" },
+    natural:  { en: "Autumn",     es: "Otoño",       it: "Autunno",     fr: "Automne",     de: "Herbst",      ru: "Осень",      ko: "가을",     ja: "秋",        zh: "秋天" },
+    flower:   { en: "Oak",        es: "Roble",       it: "Quercia",     fr: "Chêne",       de: "Eiche",       ru: "Дуб",        ko: "참나무",    ja: "オーク",    zh: "橡树" },
+    beverage: { en: "Mojito",     es: "Mojito",      it: "Mojito",      fr: "Mojito",      de: "Mojito",      ru: "Мохито",     ko: "모히토",    ja: "モヒート",   zh: "莫吉托" },
+  },
   quartz: {
     gems:     { en: "Quartz",     es: "Cuarzo",      it: "Quarzo",      fr: "Quartz",      de: "Quarz",       ru: "Кварц",      ko: "석영",     ja: "クォーツ",   zh: "石英" },
-    natural:  { en: "Typhoon",    es: "Tifón",       it: "Tifone",      fr: "Typhon",      de: "Taifun",      ru: "Тайфун",     ko: "태풍",     ja: "台風",      zh: "台风" },
-    flower:   { en: "Oak",        es: "Roble",       it: "Quercia",     fr: "Chêne",       de: "Eiche",       ru: "Дуб",        ko: "참나무",    ja: "オーク",    zh: "橡树" },
-    beverage: { en: "Gin",        es: "Ginebra",     it: "Gin",         fr: "Gin",         de: "Gin",         ru: "Джин",       ko: "진",       ja: "ジン",      zh: "杜松子酒" },
-  },
-  diamond: {
-    gems:     { en: "Diamond",    es: "Diamante",    it: "Diamante",    fr: "Diamant",     de: "Diamant",     ru: "Алмаз",      ko: "다이아몬드",  ja: "ダイヤモンド", zh: "钻石" },
     natural:  { en: "Arctic",     es: "Ártico",      it: "Artico",      fr: "Arctique",    de: "Arktis",      ru: "Арктика",    ko: "북극",     ja: "北極",      zh: "北极" },
     flower:   { en: "Edelweiss",  es: "Edelweiss",   it: "Edelweiss",   fr: "Edelweiss",   de: "Edelweiß",    ru: "Эдельвейс",  ko: "에델바이스",  ja: "エーデルワイス", zh: "雪绒花" },
     beverage: { en: "Schnapps",   es: "Schnapps",    it: "Schnapps",    fr: "Schnapps",    de: "Schnaps",     ru: "Шнапс",      ko: "슈냅스",    ja: "シュナップス", zh: "杜松烧酒" },
@@ -248,9 +229,9 @@ export const PALETTE_I18N = {
 
 /** Ordered palette keys — matches the 5×3 grid layout (warm → cool → neutral). */
 export const PALETTE_ORDER = [
-  "ruby",      "gold",     "anthracite", "amber",    "onyx",
-  "malachite", "emerald",  "topaz",      "sapphire", "amethyst",
-  "opal",      "pearl",    "marble",     "quartz",   "diamond",
+  "ruby",      "gold",     "anthracite",     "amber",     "diamond",
+  "onyx",      "emerald",  "topaz",          "sapphire",  "amethyst",
+  "opal",      "pearl",    "marble",         "agate",     "quartz",
 ];
 
 /** Default palette key. */

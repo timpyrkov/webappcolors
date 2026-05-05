@@ -98,5 +98,48 @@
   "gauge.fuel": "燃油",
   "gauge.level": "水平",
   "btn.exportPalette": "导出调色板",
-  "btn.exportStyle": "导出样式"
+  "btn.exportStyle": "导出样式",
+
+  "label.arcMode": "弧线模式",
+  "label.genParams": "生成参数",
+  "label.preview": "预览",
+
+  "arc.linear": "线性",
+  "arc.circle": "圆形",
+  "arc.superellipse": "超椭圆",
+
+  "param.n": "N",
+  "param.m": "M",
+  "param.l": "L",
+  "param.lmin": "L\u2098\u1d62\u2099",
+  "param.lmax": "L\u2098\u2090\u2093",
+  "param.power": "幂次",
+  "param.sigmoid": "S形",
+  "param.accLight": "亮色强调",
+  "param.accDark": "暗色强调",
+  "param.alertL": "警报 L",
+  "param.catL": "分类 L",
+
+  "preview.layout": "布局",
+  "preview.swatches": "色板",
+
+  "variant.darkTinted": "深色着色",
+  "variant.lightTinted": "浅色着色",
+  "variant.darkAccented": "深色强调",
+  "variant.lightAccented": "浅色强调",
+
+  "swatch.neutrals": "中性色",
+  "swatch.primary": "主色",
+  "swatch.secondary": "辅色",
+  "swatch.alerts": "警报",
+  "swatch.categories": "分类",
+
+  "layout.primaryAccent": "主强调",
+  "layout.secondaryAccent": "辅强调",
+  "layout.normalText": "这是正常文本。",
+  "layout.mutedText": "这是柔和文本。",
+  "layout.active": "激活",
+  "layout.focus": "聚焦",
+  "layout.default": "默认",
+  "layout.disabled": "禁用"
 }

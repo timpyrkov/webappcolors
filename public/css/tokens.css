@@ -1,33 +1,16 @@
-/* ── tokens.css — CSS custom properties (overwritten by gen_colors.js at runtime) ── */
+/* ── tokens.css — CSS custom properties (overwritten by app.js at runtime) ── */
 
 :root {
-  /* Defaults: Amber palette, dark theme, accents-only mode */
-  --bg:        #181610;
-  --fg:        #e8e4d8;
-  --neutral-1: #302c25;
-  --neutral-2: #58523e;
-  --neutral-3: #807858;
-  --neutral-4: #b0a878;
-  --panel-bg:  #201e18;
-  --panel-edge:#2a2820;
-  --edge-1:    #2a2820;
-  --edge-2:    #322e28;
+  /* Semantic aliases for left-panel styling (set from darkTinted neutrals) */
+  --bg:   #1d1b16;
+  --bg-2: #272420;
+  --bg-3: #31302b;
+  --bg-5: #484540;
+  --bg-7: #5e5b56;
+  --fg:   #eae6db;
+  --fg-2: #9b9790;
 
-  /* Primary accents (Amber 5-stop interpolation) */
-  --primary-accent-1: #d08028;
-  --primary-accent-2: #d89828;
-  --primary-accent-3: #e0a828;
-  --primary-accent-4: #e8b830;
-  --primary-accent-5: #f0c030;
-
-  /* Secondary accents (from main hue) */
-  --secondary-accent-1: #3a2810;
-  --secondary-accent-2: #503818;
-  --secondary-accent-3: #6a5238;
-  --secondary-accent-4: #886840;
-  --secondary-accent-5: #a08050;
-
-  /* Semantic notification colours */
+  /* Notification colours (defaults, overridden at runtime) */
   --color-note:    #5bbcb8;
   --color-message: #4da6e8;
   --color-success: #5cb85c;

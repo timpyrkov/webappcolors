@@ -1,14 +1,13 @@
 {
-  "name": "webappcontrols",
-  "version": "0.1.0",
+  "name": "webappcolors",
+  "version": "1.0.0",
   "private": true,
-  "description": "Reusable Web UI controls showcase with theming, palettes, and i18n",
+  "description": "Color palette optimization tool with OKLCh gradient interpolation",
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js"
   },
   "dependencies": {
-    "archiver": "^7.0.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
