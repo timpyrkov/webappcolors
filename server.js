@@ -115,3 +115,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.listen(PORT, () => {
   console.log(`✓ Dev server running at http://localhost:${PORT}`);
 });
+
+// Export for Vercel serverless
+module.exports = app;

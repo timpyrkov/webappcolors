@@ -2,6 +2,8 @@
 
 Dynamic colour-palette generator and theme preview tool for web applications.
 
+**Live demo:** https://webappcolors.vercel.app/
+
 ## Overview
 
 This project provides an interactive UI for designing colour palettes from a
