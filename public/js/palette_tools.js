@@ -740,4 +740,5 @@ export {
     paletteToTokens,
     exportPaletteJson,
     downloadPaletteJson,
+    changeColorSaturation,
 };

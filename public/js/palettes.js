@@ -102,7 +102,7 @@ export const PALETTES = {
   pearl: {
     gems: "Pearl", natural: "Morning", flower: "Sakura", beverage: "Latte",
     main:    "#584858",
-    accents: ["#fff9b8", "#ffc88a", "#a8d8ff"],
+    accents: ["#e6d62c","#e27e0e","#2891e5"],
   },
 
   // ── 13. Marble ────────────────────────────────────────────────────

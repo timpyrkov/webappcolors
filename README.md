@@ -6,8 +6,8 @@ Dynamic colour-palette generator and theme preview tool for web applications.
 
 This project provides an interactive UI for designing colour palettes from a
 small set of seed colours. It generates four themed variants (Dark Tinted,
-Light Tinted, Dark Accented, Light Accented) and previews them as swatch grids
-or mini-layout mockups.
+Light Tinted, Dark Accented, Light Accented) and previews them in three modes:
+swatch grids, mobile app mockups, or an animated procedural synthwave scene.
 
 ### Colour pipeline
 
@@ -25,8 +25,13 @@ or mini-layout mockups.
 - Tuneable generation parameters (neutral count, accent count, category count,
   lightness range, sigmoid distribution, arc mode)
 - Internationalisation (i18n) — 9 languages, translatable UI and palette names
-- Real-time preview in Layout or Swatch mode
-- Export palettes as JSON
+- Three preview modes:
+  - **Web** — swatch grid with four variant cards
+  - **Mobile** — two phone mockups with fitness-app-style UI panels
+  - **Procedural** — animated synthwave landscape with Perlin-noise terrain,
+    retro sun, SVG muscle car with rotating wheels, and depth-graded grid edges
+- Adjustable accent saturation in the animation via `SATURATION_SHIFT`
+- Export palettes as JSON or download reusable module zip
 
 ## Getting started
 
@@ -35,12 +40,24 @@ npm install
 npm run dev        # http://localhost:3000
 ```
 
+## Deployment
+
+The project includes a `vercel.json` for one-click deployment on Vercel:
+
+```bash
+vercel            # deploy to preview
+vercel --prod     # deploy to production
+```
+
+The Express server (`server.js`) handles API routes and static file serving.
+
 ## Project structure
 
 ```
 public/
   js/
-    app.js              — main application wiring
+    app.js              — main application wiring, mobile mockup builder
+    animation.js        — procedural synthwave canvas renderer
     palette_tools.js    — self-contained colour math + palette engine
     palettes.js         — palette seed data + i18n display names
     color_picker.js     — OKLCh conversions for colour-picker UI
@@ -48,10 +65,14 @@ public/
     components/         — custom web components (segmented-control, etc.)
   css/
     layout.css          — application styles
+  data/
+    car.svg             — vector car edge mask (sharp at any scale)
+    car.png             — raster car fill mask
   i18n/
     en.json … zh.json   — UI translation strings (9 languages)
   index.html            — main page
-server.js               — Express dev server
+server.js               — Express dev server + API (save palette, export zip)
+vercel.json             — Vercel deployment configuration
 ```
 
 ## Reusing the palette engine
