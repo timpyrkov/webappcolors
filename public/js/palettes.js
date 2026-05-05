@@ -14,7 +14,7 @@ export const PALETTES = {
   ruby: {
     gems: "Ruby", natural: "Sunset", flower: "Rose", beverage: "Wine",
     main:    "#3a4160",
-    accents: ["#9b2335", "#e04858"],
+    accents: ["#aa002b", "#e04858"],
   },
 
   // ── 2. Gold ──────────────────────────────────────────────────────
@@ -125,8 +125,8 @@ export const PALETTES = {
   // Monochrome: all neutrals with minimal chroma. Subtle cool-steel tint.
   quartz: {
     gems: "Quartz", natural: "Arctic", flower: "Edelweiss", beverage: "Schnapps",
-    main:    "#686870",
-    accents: ["#404048", "#b8b8c0"],
+    main:    "#686868",
+    accents: ["#404040", "#b8b8b8"],
   },
 };
 
