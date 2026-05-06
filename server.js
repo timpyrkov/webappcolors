@@ -91,7 +91,7 @@ app.post("/api/save-palette", (req, res) => {
 
 app.get("/api/export-modules", (_req, res) => {
   res.setHeader("Content-Type", "application/zip");
-  res.setHeader("Content-Disposition", 'attachment; filename="palette-module.zip"');
+  res.setHeader("Content-Disposition", 'attachment; filename="palette-modules.zip"');
 
   const archive = archiver("zip", { zlib: { level: 9 } });
   archive.on("error", (err) => res.status(500).send({ error: err.message }));
