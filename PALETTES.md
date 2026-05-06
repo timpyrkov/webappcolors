@@ -1,9 +1,16 @@
 # Palette Module — Integration Guide
 
 Reusable dynamic colour-palette engine for web applications.
-Generates four themed variants from a small set of seed colours using
+Generates four themed variants from each set of seed colours using
 HSL for hue/saturation and "excolor" geometric arcs (through black → colour →
-white in RGB space) for perceptually smooth lightness interpolation.
+white in RGB space) for perceptually vivid lightness interpolation.
+
+> **Theme variants:** Each palette supports a 2 × 2 matrix of **Dark/Light** × **Tinted/Accented**:
+>
+> - **Tinted** — saturated accents + tinted (coloured) backgrounds
+> - **Accented** — saturated accents + greyscale (neutral) backgrounds
+>
+> **Palette names:** 15 palettes are available. Each palette defaults to a **Gemstone** name (Ruby, Gold, Topaz, etc.). Alternatively, you can use **Natural Phenomena** (Sunset, Autumn, Lagoon), **Flower** (Rose, Marigold, Iris), or **Beverage** (Wine, Brandy, Mojito) names for theming.
 
 ---
 
@@ -16,7 +23,7 @@ white in RGB space) for perceptually smooth lightness interpolation.
 
 These two files have **zero DOM dependencies** and can be dropped into any JS
 project (browser ES module, Node, bundler). Place them together in the same
-directory (e.g. `js/`).
+directory (e.g. `src/`, `js/` or `public/js/`).
 
 ---
 
@@ -387,7 +394,65 @@ function onLanguageChange(newLang) {
 
 ---
 
-## 12. License
+## 12. Integration Checklist
+
+### Minimal implementation checklist for AI assistants
+
+```js
+// 1. Imports
+import { PALETTES, PALETTE_ORDER, DEFAULT_PALETTE, PALETTE_I18N }
+  from "./palettes.js";
+import { createPalette } from "./palette_tools.js";
+
+// 2. State (adapt to your framework)
+let currentPalette = DEFAULT_PALETTE;  // gemstone key
+let currentTheme   = "dark";           // "dark" | "light"
+let currentLang    = "en";             // ISO 639-1 code
+
+// 3. Variant mapping (tinted only)
+const VARIANT_MAP = {
+  dark:  "darkTinted",
+  light: "lightTinted",
+};
+
+// 4. Generate and apply
+function refreshPalette() {
+  const p = PALETTES[currentPalette];
+  const result = createPalette({ main: p.main, seeds: p.accents });
+  const variant = result[VARIANT_MAP[currentTheme]];
+  applyTokensToCSS(variant); // adapt to your CSS variable names
+}
+
+// 5. Palette dropdown (gemstone names, i18n)
+function buildPaletteDropdown(container) {
+  container.innerHTML = "";
+  for (const key of PALETTE_ORDER) {
+    const i18n = PALETTE_I18N[key]?.gems;
+    const label = i18n?.[currentLang] || i18n?.["en"] || PALETTES[key].gems;
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = label;
+    option.selected = key === currentPalette;
+    container.appendChild(option);
+  }
+}
+
+// 6. Theme toggle handler
+function setTheme(theme) {
+  currentTheme = theme; // "dark" or "light"
+  refreshPalette();
+}
+
+// 7. Language change handler
+function setLanguage(lang) {
+  currentLang = lang;
+  buildPaletteDropdown(document.getElementById("paletteSelect"));
+}
+```
+
+---
+
+## 13. License
 
 This palette module is released under the **MIT License**.
 
