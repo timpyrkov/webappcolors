@@ -117,8 +117,8 @@ export const PALETTES = {
   // Monokai / Gruvbox–inspired: 7 explicit accent colours on warm olive-dark.
   agate: {
     gems: "Agate", natural: "Mountain", flower: "Oak", beverage: "Liquor",
-    main:    "#32302f",
-    accents: ["#fe8019", "#fabd2f", "#b8bb26", "#8ec07c", "#83a598", "#d3869b", "#fb4934"],
+    main:    "#72635b",
+    accents: ["#fe8522", "#d8a429", "#babd2d", "#82b072", "#7b9b8f", "#b27182", "#fb5e4b"],
   },
 
   // ── 15. Quartz ───────────────────────────────────────────────────
