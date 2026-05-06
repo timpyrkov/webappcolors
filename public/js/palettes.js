@@ -62,7 +62,7 @@ export const PALETTES = {
   topaz: {
     gems: "Topaz", natural: "Lagoon", flower: "Agave", beverage: "Mojito",
     main:    "#26434c",
-    accents: ["#373d40", "#00aaca", "#29bfb4","#24bcd0"],
+    accents: ["#26a8f1", "#00aaca", "#29bfb4","#24bcd0"],
   },
 
   // ── 8. Emerald ────────────────────────────────────────────────────

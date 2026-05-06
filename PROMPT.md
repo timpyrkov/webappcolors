@@ -29,6 +29,25 @@ For the palette selector:
 - Listen to language changes and re-render selector labels
 - Fallback chain: requested language → English → raw palette field
 
+### Step 5 — Use explicit parameter defaults
+
+When calling `createPalette()`, use the following defaults:
+
+| Parameter | Default |
+|-----------|---------|
+| N         | 12      |
+| M         | 5       |
+| L         | 7       |
+| Lmin      | 0.05    |
+| Lmax      | 0.95    |
+| Power     | 1.5     |
+| Sigmoid   | 3.0     |
+| Acc light | 0.55    |
+| Acc dark  | 0.45    |
+| Alert L   | 0.55    |
+| Cat. L    | 0.55    |
+| Arc mode  | linear  |
+
 Use the PALETTES.md file as a reference for the palette names, their translations and integration instructions.
 
 In case of any questions or uncertainties, ask for clarification. If the contents of this prompt do not match the contents of the PALETTES.md file, follow this prompt.

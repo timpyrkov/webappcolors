@@ -605,6 +605,20 @@ function createPalette({
     const darkAccentedNeutrals  = makeNeutrals(accentedHexes);
     const lightAccentedNeutrals = makeNeutrals([...accentedHexes].reverse());
 
+    // --- Hue-aware sigmoid darkening ---
+    // When seed pair hues are close, increase lightness contrast.
+    // Tuneable constants: amplitude, midpoint (degrees), steepness.
+    const HUE_DARKEN_AMP  = 0.07;  // max extra darkening at zero hue diff
+    const HUE_DARKEN_MID  = 15;    // hue diff (°) at sigmoid midpoint
+    const HUE_DARKEN_STEEP = 0.1;   // transition steepness (lower = sharper)
+
+    function hueDiffDarkening(hexA, hexB) {
+        const [hA] = hexToHsl(hexA);
+        const [hB] = hexToHsl(hexB);
+        const diff = Math.min(Math.abs(hA - hB), 360 - Math.abs(hA - hB));
+        return HUE_DARKEN_AMP / (1 + Math.exp((diff - HUE_DARKEN_MID) / HUE_DARKEN_STEEP));
+    }
+
     // --- Primary accents ---
     function makePrimaryAccents() {
         let s1, s2;
@@ -616,8 +630,9 @@ function createPalette({
             // Reverse: seed1 = seeds[1], seed2 = seeds[0]
             s1 = seeds[1]; s2 = seeds[0];
         }
-        s1 = setColorLightness(s1, accentLight, opts);
-        s2 = setColorLightness(s2, accentDark, opts);
+        const darkShift = hueDiffDarkening(s1, s2);
+        s1 = setColorLightness(s1, accentLight + darkShift, opts);
+        s2 = setColorLightness(s2, accentDark - darkShift, opts);
         const hexes = generateTwoColorPath(s1, s2, M, opts);
         return hexes.map((hex, i) => {
             const [H, S] = hexToHsl(hex);
@@ -637,8 +652,9 @@ function createPalette({
             // No reverse: seed3 = seeds[2], seed4 = seeds[3]
             s3 = seeds[2]; s4 = seeds[3];
         }
-        s3 = setColorLightness(s3, accentLight, opts);
-        s4 = setColorLightness(s4, accentDark, opts);
+        const darkShift = hueDiffDarkening(s3, s4);
+        s3 = setColorLightness(s3, accentLight + darkShift, opts);
+        s4 = setColorLightness(s4, accentDark - darkShift, opts);
         const hexes = generateTwoColorPath(s3, s4, M, opts);
         return hexes.map((hex, i) => {
             const [H, S] = hexToHsl(hex);
