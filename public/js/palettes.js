@@ -61,15 +61,15 @@ export const PALETTES = {
   // Tron Legacy–inspired: bright cyan glow on dark steel-blue.
   topaz: {
     gems: "Topaz", natural: "Lagoon", flower: "Iris", beverage: "Mojito",
-    main:    "#203b43",
-    accents: ["#49b5e5", "#00aaca", "#29bfb4","#24bcd0"],
+    main:    "#26434c",
+    accents: ["#373d40", "#00aaca", "#29bfb4","#24bcd0"],
   },
 
   // ── 8. Emerald ────────────────────────────────────────────────────
   // Violet-blue-to-teal on clinical blue-grey. Clinic/medical style.
   emerald: {
     gems: "Emerald", natural: "Monsoon", flower: "Eucalyptus", beverage: "Absinthe",
-    main:    "#3d4d68",
+    main:    "#344766",
     accents: ["#2870a8", "#38c0a8", "#0073c1", "#4e62b2"],
   },
 
@@ -77,7 +77,7 @@ export const PALETTES = {
   // Blue-to-cyan on noble muted purple. Deep-sea elegance.
   sapphire: {
     gems: "Sapphire", natural: "Midnight", flower: "Lavender", beverage: "Curaçao",
-    main:    "#403060",
+    main:    "#362e4a",
     accents: ["#2858b0", "#48badc", "#a43391", "#7b53a3"],
   },
 
@@ -85,7 +85,7 @@ export const PALETTES = {
   // Dark-pink-to-gold on deep purple. Rich and dramatic.
   amethyst: {
     gems: "Amethyst", natural: "Twilight", flower: "Orchid", beverage: "Cognac",
-    main:    "#483060",
+    main:    "#3f2c52",
     accents: ["#a03068", "#d8a840", "#9e3f8d", "#2c0056"],
   },
 
