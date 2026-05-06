@@ -536,11 +536,11 @@ function clampInt(v, lo, hi) {
 const GREY = '#808080';
 
 const NOTIFICATION_BASES = {
-    error:   '#d22019',
-    warning: '#ef9c20',
-    success: '#65ad68',
-    message: '#3d868a',
-    note:    '#b66187',
+    error:   '#fb5e4b',
+    warning: '#d8a429',
+    success: '#82b072',
+    message: '#7b9b8f',
+    note:    '#b27182',
 };
 
 // --- Main API ---
