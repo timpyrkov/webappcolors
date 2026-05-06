@@ -141,13 +141,25 @@ export function createSynthwaveCanvas(container, variant) {
     });
   }
 
+  // Detect monochrome palette (all accent saturations near zero)
+  function isMonochrome(v) {
+    const allHexes = [...v.primary, ...v.secondary].map(c => c.hex);
+    return allHexes.every(hex => {
+      const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+      const max = Math.max(r,g,b), min = Math.min(r,g,b);
+      return (max - min) / 255 < 0.05;
+    });
+  }
+
   // Apply saturation shift to a hex color and return RGB triplet
+  let _skipSaturation = false;
   function accentRgb(hex) {
-    const adjusted = SATURATION_SHIFT === 0 ? hex : changeColorSaturation(hex, SATURATION_SHIFT);
-    return hexToRgb(adjusted);
+    if (_skipSaturation || SATURATION_SHIFT === 0) return hexToRgb(hex);
+    return hexToRgb(changeColorSaturation(hex, SATURATION_SHIFT));
   }
 
   function extractColors(v) {
+    _skipSaturation = isMonochrome(v);
     const n = v.neutrals;
     const N = n.length;
     const M = v.primary.length;
@@ -209,13 +221,15 @@ export function createSynthwaveCanvas(container, variant) {
     oc.fillStyle = sunGrad;
     oc.fill();
 
-    // Cut horizontal cloud stripes
+    // Cut horizontal stripes in bottom half only, thickness & spacing grow bottom→top
     oc.globalCompositeOperation = 'destination-out';
-    const stripes = 6;
+    const stripes = 9;
     for (let i = 0; i < stripes; i++) {
-      const t = (i + 1) / (stripes + 1);
-      const y = ocy - sunR + t * sunR * 2;
-      const thickness = 1.5 + i * 1.8;
+      // Quadratic spacing: denser at bottom, wider apart toward mid
+      const tLin = (i + 1) / (stripes + 1);
+      const t = tLin * tLin; // compress lower stripes together
+      const y = ocy + sunR * (1 - t * 1.3); // bottom half: from bottom up to mid
+      const thickness = 1.0 + i * 1.6; // thinner at bottom, thicker toward mid
       oc.fillStyle = 'rgba(0,0,0,1)';
       oc.fillRect(0, y - thickness / 2, size, thickness);
     }
@@ -404,7 +418,7 @@ export function createSynthwaveCanvas(container, variant) {
       const cy = carY + wh.cy * scaleY;
       const rimR = wh.rimR * scaleX;
       const hubR = wh.hubR * scaleX;
-      const lineW = 2.5 * scaleX; // match SVG stroke-width scaling
+      const lineW = 7.0 * scaleX; // thick to match car body stroke
 
       // Cover static spokes with fill color circle (inside the rim)
       ctx.beginPath();

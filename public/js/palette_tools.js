@@ -660,21 +660,18 @@ function createPalette({
     }
 
     // --- Category colours ---
-    function makeCategories() {
-        // Build anchor list from seeds (fall back to main if none)
-        let anchors = seeds.length === 0 ? [main, main] :
-                      seeds.length === 1 ? [seeds[0], seeds[0]] :
-                      [...seeds];
-        anchors = anchors.map(s => setColorLightness(s, categoryL, opts));
-
+    function makeCategories(primary, secondary) {
         let hexes;
-        if (anchors.length === L) {
-            // Exact match — return as-is
-            hexes = anchors;
+        if (seeds.length >= 7) {
+            // a) 7+ seeds: use first 7 with lightness normalization
+            hexes = seeds.slice(0, 7).map(s => setColorLightness(s, categoryL, opts));
+        } else if (seeds.length >= 3) {
+            // b) 3–6 seeds: 7 from three-anchor gradient (seed1, seed2, seedN)
+            const anchors = [seeds[0], seeds[1], seeds[seeds.length - 1]];
+            hexes = generateColorPath(anchors, 7, opts);
         } else {
-            // Wrap: append first anchor at end, generate L+1, drop last
-            const looped = [...anchors, anchors[0]];
-            hexes = generateColorPath(looped, L + 1, opts).slice(0, L);
+            // c) <3 seeds: all 7 as gradient from primary-1 to primary-M (no lightness norm)
+            hexes = generateTwoColorPath(primary[0].hex, primary[primary.length - 1].hex, 7, opts);
         }
         return hexes.map((hex, i) => {
             const [H, S] = hexToHsl(hex);
@@ -687,7 +684,7 @@ function createPalette({
     const primary   = makePrimaryAccents();
     const secondary = makeSecondaryAccents();
     const notifications = makeNotifications();
-    const categories = makeCategories();
+    const categories = makeCategories(primary, secondary);
 
     function buildVariant(neutrals) {
         return { neutrals, primary, secondary, notifications, categories };
