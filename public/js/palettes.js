@@ -209,7 +209,7 @@ export const PALETTE_I18N = {
   },
   marble: {
     gems:     { en: "Marble",     es: "Mármol",      it: "Marmo",       fr: "Marbre",      de: "Marmor",      ru: "Мрамор",     ko: "대리석",    ja: "マーブル",   zh: "大理石" },
-    natural:  { en: "Dusk",       es: "Ocaso",       it: "Crepuscolo",  fr: "Crépuscule",  de: "Abenddämmerung", ru: "Сумерки",  ko: "황혼",     ja: "夕暮れ",    zh: "黄昏" },
+    natural:  { en: "Dusk",       es: "Ocaso",       it: "Imbrunire",   fr: "Pénombre",    de: "Abendrot",    ru: "Сумрак",    ko: "노을",     ja: "夕暮れ",    zh: "暮色" },
     flower:   { en: "Maple",      es: "Arce",        it: "Acero",       fr: "Érable",      de: "Ahorn",       ru: "Клён",       ko: "단풍",     ja: "カエデ",    zh: "枫树" },
     beverage: { en: "Cider",      es: "Sidra",       it: "Sidro",       fr: "Cidre",       de: "Apfelwein",   ru: "Сидр",       ko: "사이다",    ja: "サイダー",   zh: "苹果酒" },
   },
