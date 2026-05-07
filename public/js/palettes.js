@@ -12,7 +12,7 @@ export const PALETTES = {
   // ── 1. Ruby ───────────────────────────────────────────────────────
   // Noble reds on muted indigo-slate. Classic luxury pairing.
   ruby: {
-    gems: "Ruby", natural: "Sunset", flower: "Rose", beverage: "Wine",
+    gems: "Ruby", natural: "Sunset", flower: "Rose", beverage: "Sangria",
     main:    "#363f6b",
     accents: ["#a2075c", "#e0494c"],
   },
@@ -52,7 +52,7 @@ export const PALETTES = {
   // ── 6. Onyx ───────────────────────────────────────────────────────
   // Olive-green accents on coffee-brown. Earthy and grounded.
   onyx: {
-    gems: "Onyx", natural: "Summer", flower: "Olive", beverage: "Coffee",
+    gems: "Onyx", natural: "Summer", flower: "Olive", beverage: "Cappuccino",
     main:    "#987b60",
     accents: ["#347a0d", "#a9ab00"],
   },
@@ -92,7 +92,7 @@ export const PALETTES = {
   // ── 11. Opal ──────────────────────────────────────────────────────
   // Dark-pink-to-peach on muted slate-blue. Warm dusk glow.
   opal: {
-    gems: "Opal", natural: "Morning", flower: "Sakura", beverage: "Latte",
+    gems: "Opal", natural: "Morning", flower: "Sakura", beverage: "Sake",
     main:    "#2c3a56",
     accents: ["#b03858", "#f0b090"],
   },
@@ -100,7 +100,7 @@ export const PALETTES = {
   // ── 12. Pearl ─────────────────────────────────────────────────────
   // Pastel rainbow on pink-violet grey. Soft, luminous, feminine.
   pearl: {
-    gems: "Pearl", natural: "Mist", flower: "Iris", beverage: "Tonic",
+    gems: "Pearl", natural: "Mist", flower: "Iris", beverage: "Baijiu",
     main:    "#584858",
     accents: ["#e27e0e", "#e6d62c", "#2891e5"],
   },
@@ -139,7 +139,7 @@ export const PALETTE_I18N = {
     gems:     { en: "Ruby",       es: "Rubí",        it: "Rubino",      fr: "Rubis",       de: "Rubin",       ru: "Рубин",      ko: "루비",     ja: "ルビー",     zh: "红宝石" },
     natural:  { en: "Sunset",     es: "Atardecer",   it: "Tramonto",    fr: "Coucher",     de: "Sonnenuntergang", ru: "Закат",   ko: "석양",     ja: "夕焼け",    zh: "日落" },
     flower:   { en: "Rose",       es: "Rosa",        it: "Rosa",        fr: "Rose",        de: "Rose",        ru: "Роза",       ko: "장미",     ja: "バラ",      zh: "玫瑰" },
-    beverage: { en: "Wine",       es: "Vino",        it: "Vino",        fr: "Vin",         de: "Wein",        ru: "Вино",       ko: "와인",     ja: "ワイン",    zh: "红酒" },
+    beverage: { en: "Sangria",    es: "Sangría",     it: "Sangria",     fr: "Sangria",     de: "Sangria",     ru: "Сангрия",    ko: "상그리아",   ja: "サングリア",  zh: "桑格利亚" },
   },
   gold: {
     gems:     { en: "Gold",       es: "Oro",         it: "Oro",         fr: "Or",          de: "Gold",        ru: "Золото",     ko: "골드",     ja: "ゴールド",   zh: "黄金" },
@@ -169,7 +169,7 @@ export const PALETTE_I18N = {
     gems:     { en: "Onyx",       es: "Ónix",        it: "Onice",       fr: "Onyx",        de: "Onyx",        ru: "Оникс",      ko: "오닉스",    ja: "オニキス",   zh: "玛瑙" },
     natural:  { en: "Summer",     es: "Verano",      it: "Estate",      fr: "Été",         de: "Sommer",      ru: "Лето",       ko: "여름",     ja: "夏",        zh: "夏天" },
     flower:   { en: "Olive",      es: "Olivo",       it: "Olivo",       fr: "Olivier",     de: "Olive",       ru: "Олива",      ko: "올리브",    ja: "オリーブ",   zh: "橄榄" },
-    beverage: { en: "Coffee",     es: "Café",        it: "Caffè",       fr: "Café",        de: "Kaffee",      ru: "Кофе",       ko: "커피",     ja: "コーヒー",   zh: "咖啡" },
+    beverage: { en: "Cappuccino", es: "Capuchino",   it: "Cappuccino",  fr: "Cappuccino",  de: "Cappuccino",  ru: "Капучино",   ko: "카푸치노",   ja: "カプチーノ",  zh: "卡布奇诺" },
   },
   topaz: {
     gems:     { en: "Topaz",      es: "Topacio",     it: "Topazio",     fr: "Topaze",      de: "Topas",       ru: "Топаз",      ko: "토파즈",    ja: "トパーズ",   zh: "黄玉" },
@@ -199,13 +199,13 @@ export const PALETTE_I18N = {
     gems:     { en: "Opal",       es: "Ópalo",       it: "Opale",       fr: "Opale",       de: "Opal",        ru: "Опал",       ko: "오팔",     ja: "オパール",   zh: "蛋白石" },
     natural:  { en: "Morning",    es: "Mañana",      it: "Mattina",     fr: "Matin",       de: "Morgen",      ru: "Утро",       ko: "아침",     ja: "朝",        zh: "清晨" },
     flower:   { en: "Sakura",     es: "Sakura",      it: "Sakura",      fr: "Sakura",      de: "Sakura",      ru: "Сакура",     ko: "벚꽃",     ja: "桜",        zh: "樱花" },
-    beverage: { en: "Latte",      es: "Latte",       it: "Latte",       fr: "Latte",       de: "Latte",       ru: "Латте",      ko: "라떼",     ja: "ラテ",      zh: "拿铁" },
+    beverage: { en: "Sake",        es: "Sake",         it: "Sake",         fr: "Saké",         de: "Sake",         ru: "Сакэ",        ko: "사케",      ja: "日本酒",     zh: "清酒" },
   },
   pearl: {
     gems:     { en: "Pearl",      es: "Perla",       it: "Perla",       fr: "Perle",       de: "Perle",       ru: "Жемчуг",     ko: "진주",     ja: "パール",    zh: "珍珠" },
     natural:  { en: "Mist",       es: "Niebla",      it: "Nebbia",      fr: "Brume",       de: "Nebel",       ru: "Туман",      ko: "안개",     ja: "霧",        zh: "薄雾" },
     flower:   { en: "Iris",       es: "Iris",        it: "Iris",        fr: "Iris",        de: "Iris",        ru: "Ирис",       ko: "아이리스",   ja: "アイリス",   zh: "鸢尾" },
-    beverage: { en: "Tonic",      es: "Tónica",      it: "Tonica",      fr: "Tonic",       de: "Tonic",       ru: "Тоник",      ko: "토닉",     ja: "トニック",   zh: "汤力水" },
+    beverage: { en: "Baijiu",     es: "Baijiu",      it: "Baijiu",      fr: "Baijiu",      de: "Baijiu",      ru: "Байцзю",     ko: "바이주",     ja: "白酒",       zh: "白酒" },
   },
   marble: {
     gems:     { en: "Marble",     es: "Mármol",      it: "Marmo",       fr: "Marbre",      de: "Marmor",      ru: "Мрамор",     ko: "대리석",    ja: "マーブル",   zh: "大理石" },
