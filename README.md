@@ -1,4 +1,4 @@
-# webappcolors
+# Web App Colors
 
 Dynamic colour-palette generator and theme preview tool for web applications.
 
@@ -32,7 +32,6 @@ swatch grids, mobile app mockups, or an animated procedural synthwave scene.
   - **Mobile** — two phone mockups with fitness-app-style UI panels
   - **Procedural** — animated synthwave landscape with Perlin-noise terrain,
     retro sun, SVG muscle car with rotating wheels, and depth-graded grid edges
-- Adjustable accent saturation in the animation via `SATURATION_SHIFT`
 - Export palettes as JSON or download reusable module zip
 
 ## Getting started
@@ -70,6 +69,8 @@ public/
   data/
     car.svg             — vector car edge mask (sharp at any scale)
     car.png             — raster car fill mask
+    PALETTES.md         — palette engine integration guide
+    PROMPT.md           — AI assistant integration prompt
   i18n/
     en.json … zh.json   — UI translation strings (9 languages)
   index.html            — main page
@@ -82,7 +83,7 @@ vercel.json             — Vercel deployment configuration
 The palette generation module (`palette_tools.js` + `palettes.js`) has **zero
 DOM dependencies** and can be integrated into any web application.
 
-See **[PALETTES.md](PALETTES.md)** for a complete integration guide covering:
+See **[PALETTES.md](public/data/PALETTES.md)** for a complete integration guide covering:
 
 - Files to copy and quick-start example
 - User-facing selections (palette, theme, colorization)
