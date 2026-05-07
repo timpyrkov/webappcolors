@@ -100,8 +100,9 @@ app.get("/api/export-modules", (_req, res) => {
   const jsDir = path.join(__dirname, "public", "js");
   archive.file(path.join(jsDir, "palette_tools.js"),  { name: "js/palette_tools.js" });
   archive.file(path.join(jsDir, "palettes.js"),       { name: "js/palettes.js" });
-  archive.file(path.join(__dirname, "PALETTES.md"),  { name: "PALETTES.md" });
-  archive.file(path.join(__dirname, "PROMPT.md"),     { name: "PROMPT.md" });
+  const dataDir = path.join(__dirname, "public", "data");
+  archive.file(path.join(dataDir, "PALETTES.md"),    { name: "PALETTES.md" });
+  archive.file(path.join(dataDir, "PROMPT.md"),      { name: "PROMPT.md" });
   archive.file(path.join(__dirname, "LICENSE"),       { name: "LICENSE" });
 
   archive.finalize();
