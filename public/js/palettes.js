@@ -199,7 +199,7 @@ export const PALETTE_I18N = {
     gems:     { en: "Opal",       es: "Ópalo",       it: "Opale",       fr: "Opale",       de: "Opal",        ru: "Опал",       ko: "오팔",     ja: "オパール",   zh: "蛋白石" },
     natural:  { en: "Morning",    es: "Mañana",      it: "Mattina",     fr: "Matin",       de: "Morgen",      ru: "Утро",       ko: "아침",     ja: "朝",        zh: "清晨" },
     flower:   { en: "Sakura",     es: "Sakura",      it: "Sakura",      fr: "Sakura",      de: "Sakura",      ru: "Сакура",     ko: "벚꽃",     ja: "桜",        zh: "樱花" },
-    beverage: { en: "Sake",        es: "Sake",         it: "Sake",         fr: "Saké",         de: "Sake",         ru: "Сакэ",        ko: "사케",      ja: "日本酒",     zh: "清酒" },
+    beverage: { en: "Sake",       es: "Sake",        it: "Sake",        fr: "Saké",        de: "Sake",        ru: "Сакэ",       ko: "사케",     ja: "日本酒",     zh: "清酒" },
   },
   pearl: {
     gems:     { en: "Pearl",      es: "Perla",       it: "Perla",       fr: "Perle",       de: "Perle",       ru: "Жемчуг",     ko: "진주",     ja: "パール",    zh: "珍珠" },
