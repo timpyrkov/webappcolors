@@ -681,10 +681,17 @@ function createPalette({
         if (seeds.length >= 7) {
             // a) 7+ seeds: use first 7 with lightness normalization
             hexes = seeds.slice(0, 7).map(s => setColorLightness(s, categoryL, opts));
+        } else if (seeds.length >= 4) {
+            // b) 4–6 seeds: primary gradient + secondary gradient
+            const secCount = Math.floor(L / 2);
+            const priCount = L - secCount;
+            const priGrad = generateTwoColorPath(primary[0].hex, primary[primary.length - 1].hex, priCount, opts);
+            const secGrad = generateTwoColorPath(secondary[0].hex, secondary[secondary.length - 1].hex, secCount, opts);
+            hexes = [...priGrad.reverse(), ...secGrad];
         } else if (seeds.length >= 3) {
-            // b) 3–6 seeds: 7 from three-anchor gradient (seed1, seed2, seedN)
+            // c) 3 seeds: 7 from three-anchor gradient (seed1, seed2, seedN)
             const anchors = [seeds[0], seeds[1], seeds[seeds.length - 1]];
-            hexes = generateColorPath(anchors, 7, opts);
+            hexes = generateColorPath(anchors, L, opts);
         } else {
             // c) <3 seeds: all 7 as gradient from primary-1 to primary-M (no lightness norm)
             hexes = generateTwoColorPath(primary[0].hex, primary[primary.length - 1].hex, 7, opts);
