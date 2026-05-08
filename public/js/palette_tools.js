@@ -709,8 +709,17 @@ function createPalette({
     const notifications = makeNotifications();
     const categories = makeCategories(primary, secondary);
 
+    // Generate extended accent colors for pseudo-3D effects
+    const EXTENDED_LIGHTEN_AMOUNT = 0.12;
+    const EXTENDED_DARKEN_AMOUNT = -0.12;
+    const primaryLight   = { label: 'primary-light',   hex: changeColorLightness(primary[0].hex, EXTENDED_LIGHTEN_AMOUNT, opts), H: primary[0].H, S: primary[0].S, L: Math.min(1, primary[0].L + EXTENDED_LIGHTEN_AMOUNT) };
+    const primaryDark    = { label: 'primary-dark',    hex: changeColorLightness(primary[primary.length - 1].hex, EXTENDED_DARKEN_AMOUNT, opts), H: primary[primary.length - 1].H, S: primary[primary.length - 1].S, L: Math.max(0, primary[primary.length - 1].L + EXTENDED_DARKEN_AMOUNT) };
+    const secondaryLight = { label: 'secondary-light', hex: changeColorLightness(secondary[0].hex, EXTENDED_LIGHTEN_AMOUNT, opts), H: secondary[0].H, S: secondary[0].S, L: Math.min(1, secondary[0].L + EXTENDED_LIGHTEN_AMOUNT) };
+    const secondaryDark  = { label: 'secondary-dark',  hex: changeColorLightness(secondary[secondary.length - 1].hex, EXTENDED_DARKEN_AMOUNT, opts), H: secondary[secondary.length - 1].H, S: secondary[secondary.length - 1].S, L: Math.max(0, secondary[secondary.length - 1].L + EXTENDED_DARKEN_AMOUNT) };
+    const extendedAccents = [primaryLight, primaryDark, secondaryLight, secondaryDark];
+
     function buildVariant(neutrals) {
-        return { neutrals, primary, secondary, notifications, categories };
+        return { neutrals, primary, secondary, notifications, categories, extendedAccents };
     }
 
     return {
@@ -730,6 +739,7 @@ function paletteToTokens(palette, variantName = 'theme') {
     for (const s of palette.secondary) tokens[`--${s.label}`] = s.hex;
     for (const [, v] of Object.entries(palette.notifications)) tokens[`--${v.label}`] = v.hex;
     for (const c of palette.categories) tokens[`--${c.label}`] = c.hex;
+    for (const e of palette.extendedAccents) tokens[`--${e.label}`] = e.hex;
     return { [variantName]: tokens };
 }
 

@@ -437,14 +437,14 @@ export function createSynthwaveCanvas(container, variant) {
       ctx.lineWidth = lineW;
       ctx.stroke();
 
-      // Draw rotating spokes
+      // Draw rotating spokes - extend to full rim radius to cover static spokes
       ctx.lineWidth = lineW;
       ctx.strokeStyle = rgbStr(spokeColor);
       for (let i = 0; i < SPOKE_COUNT; i++) {
         const angle = wheelAngle + (Math.PI * 2 * i) / SPOKE_COUNT;
         ctx.beginPath();
         ctx.moveTo(cx + Math.cos(angle) * hubR, cy + Math.sin(angle) * hubR);
-        ctx.lineTo(cx + Math.cos(angle) * (rimR - lineW), cy + Math.sin(angle) * (rimR - lineW));
+        ctx.lineTo(cx + Math.cos(angle) * rimR, cy + Math.sin(angle) * rimR);
         ctx.stroke();
       }
 
