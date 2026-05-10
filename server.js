@@ -110,6 +110,7 @@ app.get("/api/export-modules", (_req, res) => {
 
 /* ── Static files ────────────────────────────────────────────── */
 
+app.get("/favicon.ico", (_req, res) => res.redirect(301, "/icons/favicon.ico"));
 app.use(express.static(path.join(__dirname, "public")));
 
 /* ── Start ───────────────────────────────────────────────────── */
