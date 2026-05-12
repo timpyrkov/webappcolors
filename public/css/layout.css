@@ -420,6 +420,53 @@ body {
   flex-wrap: wrap;
 }
 
+/* ── Info note ── */
+
+.disable-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  user-select: none;
+}
+
+.disable-toggle:hover {
+  opacity: 1;
+}
+
+.disable-toggle input[type="checkbox"] {
+  accent-color: var(--primary-1, #888);
+  cursor: pointer;
+}
+
+.info-note {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-note-text {
+  display: none;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  opacity: 0.75;
+}
+
+.info-note-text p {
+  margin: 0 0 6px 0;
+}
+
+.info-note-text p:last-child {
+  margin-bottom: 0;
+}
+
+.info-note-text a {
+  color: var(--primary-1, #88aacc);
+  text-decoration: underline;
+}
+
 /* ── Lightness sliders ── */
 
 .slider-grid {

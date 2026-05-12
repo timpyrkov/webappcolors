@@ -1,5 +1,5 @@
 {
-  "app.title": "Controlli App Web",
+  "app.title": "Colori App Web",
   "label.language": "Lingua",
   "label.style": "Stile",
   "label.font": "Carattere",
@@ -177,5 +177,10 @@
   "layout.active": "Attivo",
   "layout.focus": "Fuoco",
   "layout.default": "Predefinito",
-  "layout.disabled": "Disabilitato"
+  "layout.disabled": "Disabilitato",
+
+  "label.infoNote": "ⓘ Info",
+  "info.disclaimer": "<b>Avvertenza:</b> questo progetto è stato sviluppato con l'ausilio di strumenti di IA; il codice potrebbe contenere errori o imprecisioni. <b>Privacy:</b> questo sito salva le preferenze di tema, lingua e font in localStorage; non vengono utilizzati cookie di tracciamento.",
+  "info.fonts": "I font <b>Seven Segment</b> e <b>Orbitron</b> supportano solo gli alfabeti latini, non fanno parte di questo progetto e sono utilizzati solo a scopo dimostrativo.",
+  "info.agate": "I colori della palette <b>Agate</b> sono ispirati allo schema di colori <b>gruvbox</b>. Per il tema originale di Pavel Pertsev, visitate <a href=\"https://github.com/morhetz/gruvbox\" target=\"_blank\" rel=\"noopener\">github.com/morhetz/gruvbox</a>."
 }

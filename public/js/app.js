@@ -876,8 +876,8 @@ function buildPickers() {
 
   const count = 1 + p.accents.length;
   const perRow = Math.min(count, 4);
-  const maxSize = Math.min(140, Math.floor((488 - (perRow - 1) * 12) / perRow));
-  const size = Math.max(80, maxSize);
+  const maxSize = Math.min(110, Math.floor((488 - (perRow - 1) * 12) / perRow));
+  const size = Math.max(70, maxSize);
 
   pickerContainer.innerHTML = "";
 
@@ -1019,6 +1019,14 @@ const btnExportModules = document.getElementById("btnExportModules");
 if (btnExportModules) {
   btnExportModules.addEventListener("click", () => {
     window.location.href = "/api/export-modules";
+  });
+}
+
+const infoNoteToggle = document.getElementById("infoNoteToggle");
+const infoNoteText   = document.getElementById("infoNoteText");
+if (infoNoteToggle && infoNoteText) {
+  infoNoteToggle.addEventListener("change", () => {
+    infoNoteText.style.display = infoNoteToggle.checked ? "block" : "none";
   });
 }
 

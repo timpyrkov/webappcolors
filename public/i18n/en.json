@@ -1,5 +1,5 @@
 {
-  "app.title": "Web App Controls",
+  "app.title": "Web App Colors",
 
   "label.language": "Language",
   "label.style": "Style",
@@ -198,5 +198,10 @@
   "layout.active": "Active",
   "layout.focus": "Focus",
   "layout.default": "Default",
-  "layout.disabled": "Disabled"
+  "layout.disabled": "Disabled",
+
+  "label.infoNote": "ⓘ Info",
+  "info.disclaimer": "<b>Disclaimer:</b> this project was developed with the help of AI tools; the code may contain errors or inaccuracies. <b>Privacy note:</b> this site stores theme, language, and font preferences in localStorage; no tracking cookies are used.",
+  "info.fonts": "<b>Seven Segment</b> and <b>Orbitron</b> fonts only support latin alphabets, are not part of this project and are used for demonstration purposes only.",
+  "info.agate": "The <b>Agate</b> palette colors are inspired by the <b>gruvbox</b> color scheme. To see the original gruvbox theme by Pavel Pertsev, visit <a href=\"https://github.com/morhetz/gruvbox\" target=\"_blank\" rel=\"noopener\">github.com/morhetz/gruvbox</a>."
 }

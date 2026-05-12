@@ -1,5 +1,5 @@
 {
-  "app.title": "Web-App-Steuerelemente",
+  "app.title": "Web-App-Farben",
   "label.language": "Sprache",
   "label.style": "Stil",
   "label.font": "Schrift",
@@ -177,5 +177,10 @@
   "layout.active": "Aktiv",
   "layout.focus": "Fokus",
   "layout.default": "Standard",
-  "layout.disabled": "Deaktiviert"
+  "layout.disabled": "Deaktiviert",
+
+  "label.infoNote": "ⓘ Info",
+  "info.disclaimer": "<b>Haftungsausschluss:</b> Dieses Projekt wurde mithilfe von KI-Tools entwickelt; der Code kann Fehler oder Ungenauigkeiten enthalten. <b>Datenschutz:</b> Diese Seite speichert Thema-, Sprach- und Schriftartpräferenzen in localStorage; es werden keine Tracking-Cookies verwendet.",
+  "info.fonts": "Die Schriftarten <b>Seven Segment</b> und <b>Orbitron</b> unterstützen nur lateinische Alphabete, sind nicht Teil dieses Projekts und dienen ausschließlich Demonstrationszwecken.",
+  "info.agate": "Die Farben der <b>Agate</b>-Palette sind vom <b>gruvbox</b>-Farbschema inspiriert. Das Original-Theme von Pavel Pertsev finden Sie unter <a href=\"https://github.com/morhetz/gruvbox\" target=\"_blank\" rel=\"noopener\">github.com/morhetz/gruvbox</a>."
 }

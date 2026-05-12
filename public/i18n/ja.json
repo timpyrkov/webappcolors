@@ -1,5 +1,5 @@
 {
-  "app.title": "ウェブアプリコントロール",
+  "app.title": "ウェブアプリカラーズ",
   "label.language": "言語",
   "label.style": "スタイル",
   "label.font": "フォント",
@@ -177,5 +177,10 @@
   "layout.active": "アクティブ",
   "layout.focus": "フォーカス",
   "layout.default": "デフォルト",
-  "layout.disabled": "無効"
+  "layout.disabled": "無効",
+
+  "label.infoNote": "ⓘ 情報",
+  "info.disclaimer": "<b>免貣事項：</b>本プロジェクトはAIツールを活用して開発されました。コードに誤りや不正確な箇所が含まれる場合があります。<b>プライバシー：</b>本サイトはテーマ・言語・フォントの設定をlocalStorageに保存します。トラッキングCookieは使用しません。",
+  "info.fonts": "<b>Seven Segment</b>および<b>Orbitron</b>フォントはラテン文字のみ対応しており、本プロジェクトの一部ではなく、デモンストレーション目的のみで使用されています。",
+  "info.agate": "<b>Agate</b>パレットの配色は<b>gruvbox</b>カラースキームに着想を得ています。Pavel Pertsevによるオリジナルテーマは<a href=\"https://github.com/morhetz/gruvbox\" target=\"_blank\" rel=\"noopener\">github.com/morhetz/gruvbox</a>をご覧ください。"
 }

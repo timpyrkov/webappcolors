@@ -95,4 +95,8 @@ export function applyTranslations() {
     const translated = keys.map((k) => t(k));
     el.setAttribute("values", JSON.stringify(translated));
   });
+  // HTML content translations (allows bold, links, etc.)
+  document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+    el.innerHTML = t(el.dataset.i18nHtml);
+  });
 }

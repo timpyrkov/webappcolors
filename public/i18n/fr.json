@@ -1,5 +1,5 @@
 {
-  "app.title": "Contrôles d'Application Web",
+  "app.title": "Couleurs d'Application Web",
   "label.language": "Langue",
   "label.style": "Style",
   "label.font": "Police",
@@ -177,5 +177,10 @@
   "layout.active": "Actif",
   "layout.focus": "Focus",
   "layout.default": "Défaut",
-  "layout.disabled": "Désactivé"
+  "layout.disabled": "Désactivé",
+
+  "label.infoNote": "ⓘ Info",
+  "info.disclaimer": "<b>Avertissement :</b> ce projet a été développé avec l'aide d'outils d'IA ; le code peut contenir des erreurs ou des inexactitudes. <b>Confidentialité :</b> ce site enregistre les préférences de thème, langue et police dans localStorage ; aucun cookie de suivi n'est utilisé.",
+  "info.fonts": "Les polices <b>Seven Segment</b> et <b>Orbitron</b> ne prennent en charge que les alphabets latins, ne font pas partie de ce projet et sont utilisées uniquement à des fins de démonstration.",
+  "info.agate": "Les couleurs de la palette <b>Agate</b> sont inspirées du schéma de couleurs <b>gruvbox</b>. Pour voir le thème original de Pavel Pertsev, visitez <a href=\"https://github.com/morhetz/gruvbox\" target=\"_blank\" rel=\"noopener\">github.com/morhetz/gruvbox</a>."
 }

@@ -1,5 +1,5 @@
 {
-  "app.title": "Элементы управления",
+  "app.title": "Цвета веб-приложения",
   "label.language": "Язык",
   "label.style": "Стиль",
   "label.font": "Шрифт",
@@ -177,5 +177,10 @@
   "layout.active": "Активно",
   "layout.focus": "Фокус",
   "layout.default": "Обычный",
-  "layout.disabled": "Откл."
+  "layout.disabled": "Откл.",
+
+  "label.infoNote": "ⓘ Инфо",
+  "info.disclaimer": "<b>Отказ от ответственности:</b> этот проект разработан с помощью инструментов ИИ; код может содержать ошибки или неточности. <b>Конфиденциальность:</b> сайт сохраняет настройки темы, языка и шрифта в localStorage; трекинговые cookie не используются.",
+  "info.fonts": "Шрифты <b>Seven Segment</b> и <b>Orbitron</b> поддерживают только латинские алфавиты, не являются частью проекта и используются исключительно в демонстрационных целях.",
+  "info.agate": "Цвета палитры <b>Agate</b> вдохновлены цветовой схемой <b>gruvbox</b>. Оригинальная тема Павла Перцева доступна на <a href=\"https://github.com/morhetz/gruvbox\" target=\"_blank\" rel=\"noopener\">github.com/morhetz/gruvbox</a>."
 }
