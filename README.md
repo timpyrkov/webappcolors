@@ -3,7 +3,7 @@
   <span style="font-size:2.5em; vertical-align: middle;"><b>Web App Colors</b></span>
 </p></h1>
 
-Dynamic colour-palette generator and theme preview tool for web applications.
+### Template web color palettes
 
 **Live demo:** https://webappcolors.vercel.app/
 
