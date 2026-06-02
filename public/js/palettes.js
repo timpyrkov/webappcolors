@@ -97,10 +97,10 @@ export const PALETTES = {
     accents: ["#b03858", "#f0b090"],
   },
 
-  // ── 12. Pearl ─────────────────────────────────────────────────────
+  // ── 12. Tourmaline ──────────────────────────────────────────────────
   // Pastel rainbow on pink-violet grey. Soft, luminous, feminine.
-  pearl: {
-    gems: "Pearl", natural: "Mist", flower: "Iris", beverage: "Baijiu",
+  tourmaline: {
+    gems: "Tourmaline", natural: "Mist", flower: "Iris", beverage: "Baijiu",
     main:    "#584858",
     accents: ["#e27e0e", "#e6d62c", "#2891e5"],
   },
@@ -201,8 +201,8 @@ export const PALETTE_I18N = {
     flower:   { en: "Sakura",     es: "Sakura",      it: "Sakura",      fr: "Sakura",      de: "Sakura",      ru: "Сакура",     ko: "벚꽃",     ja: "桜",        zh: "樱花" },
     beverage: { en: "Sake",       es: "Sake",        it: "Sake",        fr: "Saké",        de: "Sake",        ru: "Сакэ",       ko: "사케",     ja: "日本酒",     zh: "清酒" },
   },
-  pearl: {
-    gems:     { en: "Pearl",      es: "Perla",       it: "Perla",       fr: "Perle",       de: "Perle",       ru: "Жемчуг",     ko: "진주",     ja: "パール",    zh: "珍珠" },
+  tourmaline: {
+    gems:     { en: "Tourmaline", es: "Turmalina",   it: "Tormalina",   fr: "Tourmaline",  de: "Turmalin",   ru: "Турмалин",  ko: "토르말린",  ja: "トルマリン", zh: "碧玺" },
     natural:  { en: "Mist",       es: "Niebla",      it: "Nebbia",      fr: "Brume",       de: "Nebel",       ru: "Туман",      ko: "안개",     ja: "霧",        zh: "薄雾" },
     flower:   { en: "Iris",       es: "Iris",        it: "Iris",        fr: "Iris",        de: "Iris",        ru: "Ирис",       ko: "아이리스",   ja: "アイリス",   zh: "鸢尾" },
     beverage: { en: "Baijiu",     es: "Baijiu",      it: "Baijiu",      fr: "Baijiu",      de: "Baijiu",      ru: "Байцзю",     ko: "바이주",     ja: "白酒",       zh: "白酒" },
@@ -231,7 +231,7 @@ export const PALETTE_I18N = {
 export const PALETTE_ORDER = [
   "ruby",      "gold",     "anthracite",     "amber",     "diamond",
   "onyx",      "topaz",    "emerald",        "sapphire",  "amethyst",
-  "opal",      "pearl",    "marble",         "agate",     "quartz",
+  "opal",      "tourmaline", "marble",       "agate",     "quartz",
 ];
 
 /** Default palette key. */
