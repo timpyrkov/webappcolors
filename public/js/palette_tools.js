@@ -283,18 +283,27 @@ function _sigmoidWarp(t, k) {
  * @returns {string[]} hex array, dark → light.
  */
 function _sampleArcRange(arc, n, lmin, lmax, sigmoid = 0) {
-    const result = [];
-    for (let i = 0; i < n; i++) {
-        // Use a (n+1)-point even grid, skipping index (n-2), to add an extra
-        // step at the dark end (between neutral-1 and neutral-2) while
-        // removing neutral-(n-1) (second from the light end).
-        const gridIdx = i < n - 1 ? i : i + 1;
-        const t = n > 1 ? gridIdx / n : 0.5;
+    // Build custom t-grid: standard even grid i/(n-1) for i=0..n-1,
+    // but skip i=n-2 (removes neutral-(n-1)) and insert a half-step
+    // at i=0.5 (adds finer sampling between neutral-1 and neutral-2).
+    const tGrid = [];
+    if (n <= 1) {
+        tGrid.push(0.5);
+    } else {
+        const step = 1 / (n - 1);
+        tGrid.push(0);               // neutral-1: t = 0
+        tGrid.push(0.5 * step);      // new point:  t = 0.5/(n-1)
+        for (let i = 1; i < n - 1; i++) {
+            if (i === n - 2) continue; // skip neutral-(n-1)
+            tGrid.push(i * step);
+        }
+        tGrid.push(1);               // neutral-n: t = 1
+    }
+    return tGrid.map(t => {
         const tw = _sigmoidWarp(t, sigmoid);
         const targetL = lmin + tw * (lmax - lmin);
-        result.push(_sampleArcAtLightness(arc, targetL));
-    }
-    return result;
+        return _sampleArcAtLightness(arc, targetL);
+    });
 }
 
 // --- Public: Excolor lightness ---
