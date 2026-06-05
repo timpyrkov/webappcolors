@@ -1,6 +1,7 @@
 {
   "name": "webappcolors",
   "version": "1.0.1",
+  "//version": "Decorative only — the app UI reads the version from the git tag via 'git describe --tags' in server.js. Keep in sync with git tags manually.",
   "private": true,
   "description": "Color palette optimization tool with OKLCh gradient interpolation",
   "scripts": {
