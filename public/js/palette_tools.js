@@ -284,20 +284,19 @@ function _sigmoidWarp(t, k) {
  */
 function _sampleArcRange(arc, n, lmin, lmax, sigmoid = 0) {
     // Build custom t-grid: standard even grid i/(n-1) for i=0..n-1,
-    // but skip i=n-2 (removes neutral-(n-1)) and insert a half-step
+    // but skip i=1 (removes old neutral-2) and insert a half-step
     // at i=0.5 (adds finer sampling between neutral-1 and neutral-2).
+    // This preserves the full light end unchanged.
     const tGrid = [];
     if (n <= 1) {
         tGrid.push(0.5);
     } else {
         const step = 1 / (n - 1);
-        tGrid.push(0);               // neutral-1: t = 0
+        tGrid.push(0);               // neutral-1:  t = 0
         tGrid.push(0.5 * step);      // new point:  t = 0.5/(n-1)
-        for (let i = 1; i < n - 1; i++) {
-            if (i === n - 2) continue; // skip neutral-(n-1)
-            tGrid.push(i * step);
+        for (let i = 2; i < n; i++) {
+            tGrid.push(i * step);    // neutral-3..n: t = 2/(n-1)..1
         }
-        tGrid.push(1);               // neutral-n: t = 1
     }
     return tGrid.map(t => {
         const tw = _sigmoidWarp(t, sigmoid);

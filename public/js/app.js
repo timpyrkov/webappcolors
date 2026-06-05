@@ -44,12 +44,12 @@ function applyRootTokens(variant) {
   const N = variant.neutrals.length;
   const root = document.documentElement.style;
   root.setProperty('--bg',   variant.neutrals[0].hex);
-  root.setProperty('--bg-2', variant.neutrals[Math.min(1, N - 1)].hex);
+  root.setProperty('--bg-2', variant.neutrals[Math.min(2, N - 1)].hex);
   root.setProperty('--bg-3', variant.neutrals[Math.min(3, N - 1)].hex);
   root.setProperty('--bg-5', variant.neutrals[Math.min(5, N - 1)].hex);
   root.setProperty('--bg-7', variant.neutrals[Math.min(6, N - 1)].hex);
   root.setProperty('--fg',   variant.neutrals[N - 1].hex);
-  root.setProperty('--fg-2', variant.neutrals[Math.min(Math.floor(N * 0.6) + 1, N - 2)].hex);
+  root.setProperty('--fg-2', variant.neutrals[Math.min(Math.floor(N * 0.6), N - 2)].hex);
   // Notification tokens
   for (const [, v] of Object.entries(variant.notifications)) {
     root.setProperty(`--${v.label}`, v.hex);
@@ -108,12 +108,12 @@ function getLayoutColors(variant) {
   const M = variant.primary.length;
   return {
     pageBg1:   n[0].hex,
-    pageBg2:   n[Math.min(3, N - 1)].hex,
-    panelBg1:  n[Math.min(2, N - 1)].hex,
-    panelBg2:  n[Math.min(4, N - 1)].hex,
-    panelEdge: n[Math.min(5, N - 1)].hex,
+    pageBg2:   n[Math.min(2, N - 1)].hex,
+    panelBg1:  n[Math.min(1, N - 1)].hex,
+    panelBg2:  n[Math.min(3, N - 1)].hex,
+    panelEdge: n[Math.min(4, N - 1)].hex,
     fg:        n[Math.max(0, N - 2)].hex,
-    muted:     n[Math.min(Math.floor(N / 2) + 1, N - 2)].hex,
+    muted:     n[Math.min(Math.floor(N / 2), N - 2)].hex,
     primary:   variant.primary.map(p => p.hex),
     secondary: variant.secondary.map(s => s.hex),
     M,
@@ -269,11 +269,11 @@ function createMobilePanel(variant) {
   const notif = variant.notifications;
 
   const bg     = n[0].hex;
-  const bg2    = n[Math.min(2, N-1)].hex;
-  const bg3    = n[Math.min(3, N-1)].hex;
-  const bg4    = n[Math.min(4, N-1)].hex;
-  const border = n[Math.min(5, N-1)].hex;
-  const muted  = n[Math.min(Math.floor(N * 0.5) + 1, N - 2)].hex;
+  const bg2    = n[Math.min(1, N-1)].hex;
+  const bg3    = n[Math.min(2, N-1)].hex;
+  const bg4    = n[Math.min(3, N-1)].hex;
+  const border = n[Math.min(4, N-1)].hex;
+  const muted  = n[Math.min(Math.floor(N * 0.5), N - 2)].hex;
   const fg2    = n[Math.max(0, N-3)].hex;
   const fg     = n[N-1].hex;
 
