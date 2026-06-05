@@ -285,7 +285,11 @@ function _sigmoidWarp(t, k) {
 function _sampleArcRange(arc, n, lmin, lmax, sigmoid = 0) {
     const result = [];
     for (let i = 0; i < n; i++) {
-        const t = n > 1 ? i / (n - 1) : 0.5;
+        // Use a (n+1)-point even grid, skipping index (n-2), to add an extra
+        // step at the dark end (between neutral-1 and neutral-2) while
+        // removing neutral-(n-1) (second from the light end).
+        const gridIdx = i < n - 1 ? i : i + 1;
+        const t = n > 1 ? gridIdx / n : 0.5;
         const tw = _sigmoidWarp(t, sigmoid);
         const targetL = lmin + tw * (lmax - lmin);
         result.push(_sampleArcAtLightness(arc, targetL));
