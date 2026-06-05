@@ -44,7 +44,7 @@ function applyRootTokens(variant) {
   const N = variant.neutrals.length;
   const root = document.documentElement.style;
   root.setProperty('--bg',   variant.neutrals[0].hex);
-  root.setProperty('--bg-2', variant.neutrals[Math.min(2, N - 1)].hex);
+  root.setProperty('--bg-2', variant.neutrals[Math.min(1, N - 1)].hex);
   root.setProperty('--bg-3', variant.neutrals[Math.min(3, N - 1)].hex);
   root.setProperty('--bg-5', variant.neutrals[Math.min(5, N - 1)].hex);
   root.setProperty('--bg-7', variant.neutrals[Math.min(6, N - 1)].hex);
