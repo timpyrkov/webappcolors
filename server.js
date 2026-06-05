@@ -12,13 +12,15 @@ app.use(express.json());
 
 const { execSync } = require("child_process");
 
+const PKG_VERSION = "v" + require("./package.json").version;
+
 app.get("/api/version", (_req, res) => {
   try {
     const tag = execSync("git describe --tags --abbrev=0", { encoding: "utf8" }).trim();
     const msg = execSync(`git tag -l --format='%(contents)' ${tag}`, { encoding: "utf8" }).trim();
     res.json({ tag, message: msg });
   } catch {
-    res.json({ tag: "dev", message: "" });
+    res.json({ tag: PKG_VERSION, message: "" });
   }
 });
 
