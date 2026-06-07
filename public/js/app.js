@@ -8,7 +8,9 @@ import { loadLanguage, t } from "./i18n.js";
 import { createSynthwaveCanvas } from "./animation.js";
 
 /* ── State ── */
-let currentPalette = DEFAULT_PALETTE;
+const _urlParams = new URLSearchParams(window.location.search);
+const _urlPalette = _urlParams.get('palette');
+let currentPalette = (_urlPalette && PALETTES[_urlPalette]) ? _urlPalette : DEFAULT_PALETTE;
 
 // Editable copy of palette seeds (starts as clone of PALETTES)
 const editedPalettes = JSON.parse(JSON.stringify(PALETTES));
@@ -739,6 +741,9 @@ if (paletteSelect) {
     const key = e.detail?.value;
     if (key && key !== currentPalette && PALETTES[key]) {
       currentPalette = key;
+      const url = new URL(window.location);
+      url.searchParams.set('palette', key);
+      history.replaceState(null, '', url);
       refreshPalette();
       buildPickers();
       updateMetaFromPalette();
