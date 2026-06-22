@@ -68,7 +68,7 @@ export const PALETTES = {
   // ── 8. Emerald ────────────────────────────────────────────────────
   // Violet-blue-to-teal on clinical blue-grey. Clinic/medical style.
   emerald: {
-    gems: "Emerald", natural: "Monsoon", flower: "Eucalyptus", beverage: "Absinthe", pigment: "Cobalt",
+    gems: "Emerald", natural: "Monsoon", flower: "Eucalyptus", beverage: "Absinthe", pigment: "Azure",
     main:    "#344766",
     accents: ["#2870a8", "#38c0a8", "#0073c1", "#4e62b2"],
   },
@@ -189,7 +189,7 @@ export const PALETTE_I18N = {
     natural:  { en: "Monsoon",    es: "Monzón",      it: "Monsone",     fr: "Mousson",     de: "Monsun",      ru: "Муссон",     ko: "몬순",     ja: "モンスーン",   zh: "季风" },
     flower:   { en: "Eucalyptus", es: "Eucalipto",   it: "Eucalipto",   fr: "Eucalyptus",  de: "Eukalyptus",  ru: "Эвкалипт",   ko: "유칼립투스",  ja: "ユーカリ",   zh: "桉树" },
     beverage: { en: "Absinthe",   es: "Absenta",     it: "Assenzio",    fr: "Absinthe",    de: "Absinth",     ru: "Абсент",     ko: "압생트",    ja: "アブサン",    zh: "苦艾酒" },
-    pigment:  { en: "Cobalt",     es: "Cobalto",     it: "Cobalto",     fr: "Cobalt",      de: "Kobalt",      ru: "Кобальт",    ko: "코발트",    ja: "コバルト",    zh: "钴蓝" },
+    pigment:  { en: "Azure",      es: "Azur",        it: "Azzurro",     fr: "Azur",        de: "Azur",        ru: "Лазурь",     ko: "애저",     ja: "アジュール",  zh: "蔚蓝" },
   },
   sapphire: {
     gems:     { en: "Sapphire",   es: "Zafiro",      it: "Zaffiro",     fr: "Saphir",      de: "Saphir",      ru: "Сапфир",     ko: "사파이어",   ja: "サファイア",  zh: "蓝宝石" },
