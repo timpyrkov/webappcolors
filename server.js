@@ -54,7 +54,7 @@ app.post("/api/save-palette", (req, res) => {
     // Update display names in PALETTES block
     if (gems) {
       const gemsRe = new RegExp(
-        `(${key}:\\s*\\{\\s*gems:\\s*")([^"]*)(".*?natural:)`,
+        `(${key}:\\s*\\{\\s*gems:\\s*")([^"]*)(".*?pigment:)`,
         "s"
       );
       src = src.replace(gemsRe, `$1${gems}$3`);
@@ -75,14 +75,14 @@ app.post("/api/save-palette", (req, res) => {
     }
     if (beverage) {
       const bevRe = new RegExp(
-        `(${key}:\\s*\\{[^}]*?beverage:\\s*")([^"]*)(".*?pigment:)`,
+        `(${key}:\\s*\\{[^}]*?beverage:\\s*")([^"]*)(")`,
         "s"
       );
       src = src.replace(bevRe, `$1${beverage}$3`);
     }
     if (pigment) {
       const pigRe = new RegExp(
-        `(${key}:\\s*\\{[^}]*?pigment:\\s*")([^"]*)(")`,
+        `(${key}:\\s*\\{[^}]*?pigment:\\s*")([^"]*)(".*?natural:)`,
         "s"
       );
       src = src.replace(pigRe, `$1${pigment}$3`);

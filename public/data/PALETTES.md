@@ -10,7 +10,7 @@ white in RGB space) for perceptually vivid lightness interpolation.
 > - **Tinted** — saturated accents + tinted (coloured) backgrounds
 > - **Accented** — saturated accents + greyscale (neutral) backgrounds
 >
-> **Palette names:** 15 palettes are available. Each palette defaults to a **Gemstone** name (Ruby, Gold, Topaz, etc.). Alternatively, you can use **Natural Phenomena** (Sunset, Autumn, Lagoon), **Flower** (Rose, Marigold, Iris), or **Beverage** (Wine, Brandy, Mojito) names for theming.
+> **Palette names:** 15 palettes are available. Each palette defaults to a **Gemstone** name (Ruby, Gold, Topaz, etc.). Alternatively, you can use **Pigment** (Carmine, Umber, Azure), **Natural Phenomena** (Sunset, Autumn, Lagoon), **Flower** (Rose, Marigold, Iris), or **Beverage** (Wine, Brandy, Mojito) names for theming.
 
 ---
 
@@ -312,7 +312,7 @@ visually distinct items. They form a seamlessly looped hue sequence.
 export const PALETTES = {
   "<key>": {
     gems: "English display name",
-    natural: "...", flower: "...", beverage: "...",
+    pigment: "...", natural: "...", flower: "...", beverage: "...",
     main:    "#hex",           // neutral tint seed
     accents: ["#hex", ...],    // 2–7+ accent seeds
   },
@@ -322,6 +322,7 @@ export const PALETTES = {
 export const PALETTE_I18N = {
   "<key>": {
     gems:     { en: "...", es: "...", ... },
+    pigment:  { en: "...", ... },
     natural:  { en: "...", ... },
     flower:   { en: "...", ... },
     beverage: { en: "...", ... },
@@ -335,14 +336,14 @@ export const PALETTE_ORDER = ["key1", "key2", ...];
 export const DEFAULT_PALETTE = "amber";
 ```
 
-The four name categories (`gems`, `natural`, `flower`, `beverage`) are
+The five name categories (`gems`, `pigment`, `natural`, `flower`, `beverage`) are
 alternative display themes — pick whichever suits your app.
 
 ---
 
 ## 10. Palette naming and i18n
 
-Each palette has four localised display-name categories in `PALETTE_I18N`.
+Each palette has five localised display-name categories in `PALETTE_I18N`.
 
 ### Lookup with fallback
 
