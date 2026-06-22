@@ -951,10 +951,12 @@ function updateMetaFromPalette() {
   const n = document.getElementById("metaNatural");
   const f = document.getElementById("metaFlower");
   const b = document.getElementById("metaBeverage");
+  const pg = document.getElementById("metaPigment");
   if (g) g.value = (i18n && i18n.gems && i18n.gems[lang]) || p.gems || "";
   if (n) n.value = (i18n && i18n.natural && i18n.natural[lang]) || p.natural || "";
   if (f) f.value = (i18n && i18n.flower && i18n.flower[lang]) || p.flower || "";
   if (b) b.value = (i18n && i18n.beverage && i18n.beverage[lang]) || p.beverage || "";
+  if (pg) pg.value = (i18n && i18n.pigment && i18n.pigment[lang]) || p.pigment || "";
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -972,10 +974,12 @@ if (btnSave) {
     const n = document.getElementById("metaNatural");
     const f = document.getElementById("metaFlower");
     const b = document.getElementById("metaBeverage");
+    const pg = document.getElementById("metaPigment");
     if (g) p.gems = g.value;
     if (n) p.natural = n.value;
     if (f) p.flower = f.value;
     if (b) p.beverage = b.value;
+    if (pg) p.pigment = pg.value;
     _initPaletteSelect(_currentLang);
 
     try {
@@ -990,6 +994,7 @@ if (btnSave) {
           natural: p.natural,
           flower: p.flower,
           beverage: p.beverage,
+          pigment: p.pigment,
         }),
       });
       const data = await resp.json();

@@ -29,7 +29,7 @@ app.get("/api/version", (_req, res) => {
 const PALETTES_PATH = path.join(__dirname, "public", "js", "palettes.js");
 
 app.post("/api/save-palette", (req, res) => {
-  const { key, main, accents, gems, natural, flower, beverage } = req.body;
+  const { key, main, accents, gems, natural, flower, beverage, pigment } = req.body;
   if (!key) return res.status(400).json({ ok: false, error: "Missing key" });
 
   try {
@@ -75,10 +75,17 @@ app.post("/api/save-palette", (req, res) => {
     }
     if (beverage) {
       const bevRe = new RegExp(
-        `(${key}:\\s*\\{[^}]*?beverage:\\s*")([^"]*)(")`,
+        `(${key}:\\s*\\{[^}]*?beverage:\\s*")([^"]*)(".*?pigment:)`,
         "s"
       );
       src = src.replace(bevRe, `$1${beverage}$3`);
+    }
+    if (pigment) {
+      const pigRe = new RegExp(
+        `(${key}:\\s*\\{[^}]*?pigment:\\s*")([^"]*)(")`,
+        "s"
+      );
+      src = src.replace(pigRe, `$1${pigment}$3`);
     }
 
     fs.writeFileSync(PALETTES_PATH, src, "utf8");
