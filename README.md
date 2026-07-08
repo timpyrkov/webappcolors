@@ -102,7 +102,7 @@ See **[PALETTES.md](public/data/PALETTES.md)** for a complete integration guide 
 
 - **Disclaimer:** this project was developed with the help of AI tools; the code may contain errors or inaccuracies.
 - **Privacy note:** this site stores theme, language, and font preferences in `localStorage`; no tracking cookies are used.
-- **Seven Segment** and **Orbitron** fonts support only latin alphabets, are not part of this project and are included for demonstration purposes only.
+- [**Seven Segment**](https://online-fonts.com/fonts/seven-segment) and [**Orbitron**](https://online-fonts.com/fonts/orbitron) fonts support only latin alphabets, are not part of this project and are included for demonstration purposes only.
 - The **Agate** palette colors are inspired by the [gruvbox](https://github.com/morhetz/gruvbox) color scheme by Pavel Pertsev.
 
 ## License
